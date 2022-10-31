@@ -1,6 +1,3 @@
-# Proyecto de Museo Inteligente | EEST2
+# Proyecto de Museo Inteligente | EEST2 | Branch Heroku
 
-Integrantes:
-* Clutterburk, Ariel
-* Guzmán, Alejandro
-* Martinez Gende, Franco
+Acá se suben los archivos que van al hosting de Heroku.
