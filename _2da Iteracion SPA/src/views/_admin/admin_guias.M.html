@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../style/css/style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../style/img/favicon.ico">
+    <title>Museo : Admin - Guias</title>
+</head>
+
+<div id="logomenu"></div>
+
+<body id="body">
+    <div class="flex-wrapper">
+      
+        <br><br>
+        <!--<img src="https://picsum.photos/1366/768">-->
+        <div id="squareform" style="color: rgb(0, 0, 0); background-color:rgba(255, 255, 255, 0.603) ;margin: auto; width: auto; border-radius: 10px; padding: 10px;">
+          
+            <center>
+                <a href="../index.html"><img src="../style/img/logo.png" width="100px" height="100px"></a>
+                    <h2>Modificar Guia</h2>
+                    <small id="info">Estás modificando a </small>
+                    <p>&nbsp</p>
+                    <hr>
+                    <br>
+            <center>
+              
+                    <p><label for="nombre">Nombre</label></p>
+                    <input class="MTextArea" type="text" id="nombre" placeholder="" required> 
+                    
+                    <p><label for="apellido">Apellido</label></p>
+                    <input class="MTextArea" type="text" id="apellido" placeholder="" required>
+                    
+                    <p><label for="idiomas_old">Idioma/s actuales</label></p>
+                        <small id="idiomas_old"></small>
+
+                    <p>&nbsp</p><hr>
+                    <p><label for="idiomas">Idioma/s</label></p>
+                       <div id="idiomas_s"></div>
+                        
+                            
+                 <p>&nbsp</p><hr><br>
+                 <input type="submit" class="MButton" onclick="sendGuia()">
+                 <a class="MButton" href="admin_guias.L.html">Volver</a>
+                 
+                <p>&nbsp</p>
+                
+                 
+            </center>
+            </div>
+        
+        
+    </div>
+    
+    <script src="../page/fetchAPI.js"></script>
+    
+    <script>
+        let urlquery = window.location.href;
+        urlquery = urlquery.substring(urlquery.search('=')+1,urlquery.length);
+        if(urlquery == window.location.href){fetch('../nAvailable.html').then(response => response.text()).then(text => document.getElementById('body').innerHTML = text) }
+        
+            window.onload = function(){
+                getApiInfo('/api/guia/' + urlquery).then(response => {
+                    document.getElementById('info').innerHTML += '<b>' +  response[0].nombre + ' ' + response[0].apellido + '</b>'
+                    document.getElementById('nombre').placeholder = response[0].nombre 
+                    document.getElementById('apellido').placeholder = response[0].apellido 
+                })
+                
+                getApiInfo('/api/guia_idioma/' + urlquery).then(response_guia => {
+                   // console.log(response)
+                    for(let x in response_guia){
+                        
+                        getApiInfo('/api/idioma/' + response_guia[x].ID_idioma).then(response_idioma => {
+                          
+                            document.getElementById('idiomas_old').innerHTML += `
+                            <b>${response_idioma[0].idioma}</b>
+                            `
+                        })
+
+                    }
+                })
+
+                getApiInfo('/api/idioma').then(response => {
+                    for(let x in response){
+                        document.getElementById('idiomas_s').innerHTML += `
+                            <input type="checkbox" id=${response[x].ID_idioma} value=${response[x].ID_idioma}>${response[x].idioma}
+                        `
+                    }
+                })
+
+            }
+
+            
+        function sendGuia(){
+            let guia_newData = {
+                nombre : document.getElementById('nombre').value,
+                apellido: document.getElementById('apellido').value,
+            }
+
+            let guia_selectedIdiomas = {
+                ES : {
+                    iC : document.getElementById('1').checked,
+                    id : 1
+                },
+                EN : {
+                    iC : document.getElementById('2').checked,
+                    id : 2
+                },
+                PR : {
+                    iC : document.getElementById('3').checked,
+                    id : 3
+
+                }
+            }
+            
+            if(guia_newData.nombre == '' || guia_newData.apellido == '' ){
+                alert("Los datos no pueden ser nulos.")
+            }else{
+                putApiInfo('/api/guia/' + urlquery, guia_newData).then(r => {
+
+
+                for(let x in guia_selectedIdiomas){
+                    if(guia_selectedIdiomas[x].iC == true){
+                        let guia_postIdiomas = {
+                            ID_idioma : guia_selectedIdiomas[x].id,
+                            ID_guia : urlquery,
+                            ultima_vez : ''
+                        }
+                        //console.log(guia_postIdiomas)
+                        getApiInfo('/api/guia_idioma/' + urlquery).then(response => {
+                            if(response.length == 0){
+                                postApiInfo('/api/guia_idioma/', guia_postIdiomas )
+                            }else{
+                            for(let x in response){
+                                if(response[x].ID_idioma != guia_postIdiomas.ID_idioma){
+                                    postApiInfo('/api/guia_idioma/', guia_postIdiomas )
+                                }
+                            }
+                         }
+                        })
+                       
+                    }else{
+                        deleteApiInfo('/api/guia_idioma/pidi/' + guia_selectedIdiomas[x].id + '/' + urlquery)
+                    }
+                }
+                }).then()
+          }
+        }
+
+
+    </script>
+
+</body>
+</html>
