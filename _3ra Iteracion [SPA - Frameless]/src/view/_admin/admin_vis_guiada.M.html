@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../style/css/style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../style/img/favicon.ico">
+    <title>Museo : Admin - Visitas Guiadas</title>
+</head>
+
+<div id="logomenu"></div>
+
+<body id="body">
+    <div class="flex-wrapper">
+      
+            <br><br>
+        <!--<img src="https://picsum.photos/1366/768">-->
+            <div id="squareform" style="color: rgb(0, 0, 0); background-color:rgba(255, 255, 255, 0.603) ;margin: auto; width: 30%; border-radius: 10px; padding: 10px;">
+                
+                <center>
+                    <a href="../index.html"><img src="../style/img/logo.png" width="100px" height="100px"></a>
+                    <h2>Modificar Visita Guiada</h2>
+                    <small id="info">Estás modificando la Visita </small>
+                    <p>&nbsp</p>
+                    <hr><br>
+                <center>
+                        <p><label for="nombre">Temática/Nombre de la Visita</label></p>
+                        <input class="MTextArea" type="text" id="nombre" maxlength="100" placeholder="">
+
+                        <p><label for="fecha">Fecha y Hora</label></p>
+                        <input class="MTextArea" type="datetime-local" id="fecha" placeholder="">
+
+                        <p><label for="sala">Sala selecta</label></p>
+                            <small id="sala"></small>
+                              
+                        <p><label for="guia">Guía selecto</label></p>
+                            <small id="guia"></small>
+                   
+                   <p>&nbsp</p><hr>
+
+
+                    <p>&nbsp</p><hr><br>
+                        <input type="submit" class="MButton" onclick="sendVisGuiada()">
+                        <a class="MButton" href="admin_vis_guiada.L.html">Volver</a>
+                        <p>&nbsp</p>
+               
+                 
+                </center>
+            </div>
+            <br>
+        
+        
+    </div>
+    
+    <script src="../page/fetchAPI.js"></script>
+    
+    <script>
+           let urlquery = window.location.href;
+           urlquery = urlquery.substring(urlquery.search('=')+1,urlquery.length);
+           if(urlquery == window.location.href){fetch('../nAvailable.html').then(response => response.text()).then(text => document.getElementById('body').innerHTML = text) }
+          
+           window.onload = function(){
+                getApiInfo('/api/visita_guiada/' + urlquery).then(response => {
+                    document.getElementById('info').innerHTML += '<b>' +  response[0].nombreVisita + '</b>'
+                    document.getElementById('nombre').placeholder =  response[0].nombreVisita
+                    
+                    let time = new Date(response[0].FHora).toISOString();  
+                    time = time.substring(0, time.length-1);
+                    document.getElementById('fecha').value =  time
+
+                    getApiInfo('/api/guia/' + response[0].ID_guia).then(responseG => {
+                        document.getElementById('guia').innerHTML += ` <b> ${responseG[0].nombre} ${responseG[0].apellido} </b> `   
+
+                    }).then(responseG => {
+                        getApiInfo('/api/visita_guiada_idioma/' + response[0].ID_VG).then(responseVGI =>{
+                            getApiInfo('/api/idioma/' + responseVGI[0].ID_idioma).then(responseIdioma =>{
+                                document.getElementById('guia').innerHTML +=  `<b> -  ${responseIdioma[0].idioma} </b>`
+                                //quedaste aqui....
+                            })
+                        })
+                    })
+                })
+
+                getApiInfo('/api/visita_guiada_salas/' + urlquery).then(responseVG => {
+
+                        getApiInfo('/api/sala/' + responseVG[0].ID_sala).then(response => {              
+                                document.getElementById('sala').innerHTML += ` <b> ${response[0].nombre_sala} </b> `   
+                    })
+                })
+
+
+
+            }
+
+     
+            
+        
+    </script>
+
+</body>
+</html>
