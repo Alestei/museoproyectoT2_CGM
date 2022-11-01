@@ -12,232 +12,133 @@ const visitante = require("../controllers/visitante.controller.js");
 
 //Esto da pena, busca una mejor forma de hacerlo!!!!!!!
 const APIHandler = (req, res) => {
+    let id = ''
+        if(req.method == 'POST'){
+        switch(req.url){
+            //VISITANTE
+            case '/api/visitante': visitante.crear(req,res); break;
+            //VISITA GUIADA
+            case '/api/visita_guiada': visita_guiada.crear(req,res); break;
+            //VISITA GUIADA IDIOMA
+            case '/api/visita_guiada_idioma': visita_guiada_idioma.crear(req,res); break;
+            //VISITA GUIADA SALAS
+            case '/api/visita_guiada_salas': visita_guiada_salas.crear(req,res); break;
+            //VISITA GUIADA VISITANTE
+            case '/api/visita_guiada_visitante': visita_guiada_visitante.crear(req,res); break;
+            //IDIOMA
+            //NO ESTABLECIDO
+            //SALA
+            case '/api/sala': sala.crear(req,res); break;
+            //GUIA
+            case '/api/guia': guia.crear(req,res); break;
+            //GUIA IDIOMA
+            case '/api/guia_idioma': guia_idioma.crear(req,res); break;
 
-  //Visitante
-    if(req.url === '/api/visitante' && req.method == 'POST'){
-        visitante.crear(req,res)
+            default:
+                res.writeHead(404, {'Content-Type': 'application/JSON'})
+                res.end(JSON.stringify({message: `La ruta ${req.url} no ha sido encontrada`}))
+            break;
+        }
     }
-    else if(req.url === '/api/visitante' && req.method == 'GET'){
-        visitante.consultarTodos(req,res)
-    }
-    else if(req.url === '/api/visitante/uid' && req.method == 'GET'){
-        visitante.obtenerUID(req,res)
-    }
-    else if(req.url.match(/\/api\/visitante\/([0-9]+)/) && req.method == 'GET'){
-        const id = req.url.split('/')[3]
-        visitante.consultarPID(req,res,id)
-    
-    }
-    else if(req.url.match(/\/api\/visitante\/([0-9]+)/) && req.method == 'PUT'){
-        const id = req.url.split('/')[3]
-        visitante.actualizarPID(req,res,id)
-    
-    }
-    else if(req.url.match(/\/api\/visitante\/([0-9]+)/) && req.method == 'DELETE'){
-        const id = req.url.split('/')[3]
-        visitante.actualizarPID(req,res,id)
-    
-    }
-    // Visita Guiada
-    else if(req.url === '/api/visita_guiada' && req.method == 'POST'){
-        visita_guiada.crear(req,res)
-    }
-    else if(req.url === '/api/visita_guiada' && req.method == 'GET'){
-        visita_guiada.consultarTodos(req,res)
-    }
-    else if(req.url === '/api/visita_guiada/uid' && req.method == 'GET'){
-        visita_guiada.obtenerUID(req,res)
-    }
-    else if(req.url.match(/\/api\/visita_guiada\/([0-9]+)/) && req.method == 'GET'){
-        const id = req.url.split('/')[3]
-        visita_guiada.consultarPID(req,res,id)
-    
-    }
-    else if(req.url.match(/\/api\/visita_guiada\/([0-9]+)/) && req.method == 'PUT'){
-        const id = req.url.split('/')[3]
-        visita_guiada.actualizarPID(req,res,id)
-    
-    }
-    else if(req.url.match(/\/api\/visita_guiada\/([0-9]+)/) && req.method == 'DELETE'){
-        const id = req.url.split('/')[3]
-        visita_guiada.actualizarPID(req,res,id)
-    
-    }
-    // Visita Guiada Idioma
-    else if(req.url === '/api/visita_guiada_idioma' && req.method == 'POST'){
-        visita_guiada_idioma.crear(req,res)
-    }
-    else if(req.url === '/api/visita_guiada_idioma' && req.method == 'GET'){
-        visita_guiada_idioma.consultarTodos(req,res)
-    }
-    else if(req.url === '/api/visita_guiada_idioma/uid' && req.method == 'GET'){
-        visita_guiada_idioma.obtenerUID(req,res)
-    }
-    else if(req.url.match(/\/api\/visita_guiada_idioma\/([0-9]+)/) && req.method == 'GET'){
-        const id = req.url.split('/')[3]
-        visita_guiada_idioma.consultarPID(req,res,id)
-    
-    }
-    else if(req.url.match(/\/api\/visita_guiada_idioma\/([0-9]+)/) && req.method == 'PUT'){
-        const id = req.url.split('/')[3]
-        visita_guiada_idioma.actualizarPID(req,res,id)
-    
-    }
-    else if(req.url.match(/\/api\/visita_guiada_idioma\/([0-9]+)/) && req.method == 'DELETE'){
-        const id = req.url.split('/')[3]
-        visita_guiada_idioma.borrarPID(req,res,id)
-    
-    }
-
-    // Visita Guiada Salas
-    else if(req.url === '/api/visita_guiada_salas' && req.method == 'POST'){
-        visita_guiada_salas.crear(req,res)
-    }
-    else if(req.url === '/api/visita_guiada_salas' && req.method == 'GET'){
-        visita_guiada_salas.consultarTodos(req,res)
-    }
-    else if(req.url === '/api/visita_guiada_salas/uid' && req.method == 'GET'){
-        visita_guiada_salas.obtenerUID(req,res)
-    }
-    else if(req.url.match(/\/api\/visita_guiada_salas\/([0-9]+)/) && req.method == 'GET'){
-        const id = req.url.split('/')[3]
-        visita_guiada_salas.consultarPID(req,res,id)
-    
-    }
-    else if(req.url.match(/\/api\/visita_guiada_salas\/([0-9]+)/) && req.method == 'PUT'){
-        const id = req.url.split('/')[3]
-        visita_guiada_salas.actualizarPID(req,res,id)
-    
-    }
-    else if(req.url.match(/\/api\/visita_guiada_salas\/([0-9]+)/) && req.method == 'DELETE'){
-        const id = req.url.split('/')[3]
-        visita_guiada_salas.borrarPID(req,res,id)
-    
-    } 
-    
-    // Visita Guiada Visitante
-    else if(req.url === '/api/visita_guiada_visitante' && req.method == 'POST'){
-        visita_guiada_visitante.crear(req,res)
-    }
-    else if(req.url === '/api/visita_guiada_visitante' && req.method == 'GET'){
-        visita_guiada_visitante.consultarTodos(req,res)
-    }
-    else if(req.url === '/api/visita_guiada_visitante/uid' && req.method == 'GET'){
-        visita_guiada_visitante.obtenerUID(req,res)
-    }
-    else if(req.url.match(/\/api\/visita_guiada_visitante\/([0-9]+)/) && req.method == 'GET'){
-        const id = req.url.split('/')[3]
-        visita_guiada_visitante.consultarPID(req,res,id)
-    
-    }
-    else if(req.url.match(/\/api\/visita_guiada_visitante\/([0-9]+)/) && req.method == 'PUT'){
-        const id = req.url.split('/')[3]
-        visita_guiada_visitante.actualizarPID(req,res,id)
-    
-    }
-    else if(req.url.match(/\/api\/visita_guiada_visitante\/([0-9]+)/) && req.method == 'DELETE'){
-        const id = req.url.split('/')[3]
-        visita_guiada_visitante.borrarPID(req,res,id)
-    
-    } 
-
-    // Idioma
-    else if(req.url === '/api/idioma' && req.method == 'GET'){
-       idioma.consultarTodos(req,res)
-    }
-    else if(req.url.match(/\/api\/idioma\/([0-9]+)/) && req.method == 'GET'){
-        const id = req.url.split('/')[3]
-        idioma.consultarPID(req,res,id)
-    
-    }
-
-    // Sala
-    else if(req.url === '/api/sala' && req.method == 'POST'){
-         sala.crear(req,res)
-    }    
-    else if(req.url === '/api/sala'&& req.method == 'GET'){
-        sala.consultarTodos(req,res)
-    
-    }
-    else if(req.url.match(/\/api\/sala\/([0-9]+)/) && req.method == 'GET'){
-        const id = req.url.split('/')[3]
-        sala.consultarPID(req,res,id)
-    
-    }
-    else if(req.url.match(/\/api\/sala\/([0-9]+)/) && req.method == 'PUT'){
-        const id = req.url.split('/')[3]
-        sala.actualizarPID(req,res,id)
-    
-    }
-    else if(req.url.match(/\/api\/sala\/([0-9]+)/) && req.method == 'DELETE'){
-        const id = req.url.split('/')[3]
-        sala.borrarPID(req,res,id)
-    
-    } 
-
-  //Guia
-    else if(req.url === '/api/guia' && req.method == 'POST'){
-    guia.crear(req,res)
-    }
-    else if(req.url === '/api/guia' && req.method == 'GET'){
-        guia.consultarTodos(req,res)
-    }
-    else if(req.url === '/api/guia/uid' && req.method == 'GET'){
-        guia.obtenerUID(req,res)
-    }
-    else if(req.url.match(/\/api\/guia\/([0-9]+)/) && req.method == 'GET'){
-        const id = req.url.split('/')[3]
-        guia.consultarPID(req,res,id)
-
-    }
-    else if(req.url.match(/\/api\/guia\/([0-9]+)/) && req.method == 'PUT'){
-        const id = req.url.split('/')[3]
-        guia.actualizarPID(req,res,id)
-
-    }
-    else if(req.url.match(/\/api\/guia\/([0-9]+)/) && req.method == 'DELETE'){
-        const id = req.url.split('/')[3]
-        guia.actualizarPID(req,res,id)
-
-    }
-
-  //Guia Idioma
-   else if(req.url === '/api/guia_idioma' && req.method == 'POST'){
-        guia_idioma.crear(req,res)
-    }
-    else if(req.url === '/api/guia_idioma' && req.method == 'GET'){
-        guia_idioma.consultarTodos(req,res)
-    }
-    else if(req.url.match(/\/api\/guia_idioma\/lang\/([0-9]+)/) && req.method == 'GET'){
-        const id = req.url.split('/')[4]
-        guia_idioma.consultarIPID(req,res,id)
-    }
-    else if(req.url.match(/\/api\/guia_idioma\/([0-9]+)/) && req.method == 'GET'){
+    else if(req.method == 'GET'){
         
-        const id = req.url.split('/')[3]
-        guia_idioma.consultarPID(req,res,id)
+        switch(req.url){
+            //VISITANTE
+            case '/api/visitante': visitante.consultarTodos(req,res); break;
+            case '/api/visitante/uid': visitante.obtenerUID(req,res); break;
+            case `/api/visitante/${req.url.split('/')[3]}`:  id = req.url.split('/')[3]; visitante.consultarPID(req,res,id); break;
+            //VISITA GUIADA
+            case '/api/visita_guiada': visita_guiada.consultarTodos(req,res); break;
+            case '/api/visita_guiada/uid': visita_guiada.obtenerUID(req,res); break;
+            case `/api/visita_guiada/${req.url.split('/')[3]}`:  id = req.url.split('/')[3]; visita_guiada.consultarPID(req,res,id); break;
+            //VISITA GUIADA IDIOMA
+            case '/api/visita_guiada_idioma': visita_guiada_idioma.consultarTodos(req,res); break;
+            case '/api/visita_guiada_idioma/uid': visita_guiada_idioma.obtenerUID(req,res); break;
+            case `/api/visita_guiada_idioma/${req.url.split('/')[3]}`: id = req.url.split('/')[3]; visita_guiada_idioma.consultarPID(req,res,id); break;
+            //VISITA GUIADA SALAS
+            case '/api/visita_guiada_salas': visita_guiada_salas.consultarTodos(req,res); break;
+            case '/api/visita_guiada_salas/uid': visita_guiada_salas.obtenerUID(req,res); break;
+            case `/api/visita_guiada_salas/${req.url.split('/')[3]}`: id = req.url.split('/')[3]; visita_guiada_salas.consultarPID(req,res,id); break;
+            //VISITA GUIADA VISITANTE
+            case '/api/visita_guiada_visitante': visita_guiada_visitante.consultarTodos(req,res); break;
+            case '/api/visita_guiada_visitante/uid': visita_guiada_visitante.obtenerUID(req,res); break;
+            case `/api/visita_guiada_visitante/${req.url.split('/')[3]}`: id = req.url.split('/')[3]; visita_guiada_visitante.consultarPID(req,res,id); break;
+            //IDIOMA
+            case '/api/idioma': idioma.consultarTodos(req,res); break;
+            case `/api/idioma/${req.url.split('/')[3]}`: id = req.url.split('/')[3]; idioma.consultarPID(req,res,id); break;
+            //SALA
+            case '/api/sala': sala.consultarTodos(req,res); break;
+            case `/api/sala/${req.url.split('/')[3]}`: id = req.url.split('/')[3]; sala.consultarPID(req,res,id); break;
+            //GUIA
+            case '/api/guia': guia.consultarTodos(req,res); break;
+            case '/api/guia/uid': guia.obtenerUID(req,res); break;
+            case `/api/guia/${req.url.split('/')[3]}`: id = req.url.split('/')[3]; guia.consultarPID(req,res,id); break;
+            //GUIA IDIOMA
+            case '/api/guia_idioma': guia_idioma.consultarTodos(req,res); break;
+            case `/api/guia_idioma/${req.url.split('/')[3]}`: id = req.url.split('/')[3]; guia_idioma.consultarPID(req,res,id); break;
+            case `/api/guia_idioma/lang/${req.url.split('/')[4]}`: id = req.url.split('/')[4]; guia_idioma.consultarIPID(req,res,id); break;
 
+            default:
+                res.writeHead(404, {'Content-Type': 'application/JSON'})
+                res.end(JSON.stringify({message: `La ruta ${req.url} no ha sido encontrada`}))
+            break;
+
+        }
     }
-    else if(req.url.match(/\/api\/guia_idioma\/([0-9]+)/) && req.method == 'PUT'){
-        const id = req.url.split('/')[3]
-        guia_idioma.actualizarPID(req,res,id)
+    else if(req.method == 'PUT'){
+        switch(req.url){
+            //VISITANTE
+            case `/api/visitante/${req.url.split('/')[3]}`:  id = req.url.split('/')[3]; visitante.actualizarPID(req,res,id); break;
+            //VISITA GUIADA
+            case `/api/visita_guiada/${req.url.split('/')[3]}`:  id = req.url.split('/')[3]; visita_guiada.actualizarPID(req,res,id); break;
+            //VISITA GUIADA IDIOMA
+            case `/api/visita_guiada_idioma/${req.url.split('/')[3]}`: id = req.url.split('/')[3]; visita_guiada_idioma.actualizarPID(req,res,id); break;
+            //VISITA GUIADA SALAS
+            case `/api/visita_guiada_salas/${req.url.split('/')[3]}`: id = req.url.split('/')[3]; visita_guiada_salas.actualizarPID(req,res,id); break;
+            //VISITA GUIADA VISITANTE
+            case `/api/visita_guiada_visitante/${req.url.split('/')[3]}`: id = req.url.split('/')[3]; visita_guiada_visitante.actualizarPID(req,res,id);
+            //IDIOMA
+            //NO ESTABLECIDO
+            //SALA
+            case `/api/sala/${req.url.split('/')[3]}`: id = req.url.split('/')[3]; sala.actualizarPID(req,res,id); break;
+            //GUIA
+            case `/api/guia/${req.url.split('/')[3]}`: id = req.url.split('/')[3]; guia.actualizarPID(req,res,id); break;
+            //GUIA IDIOMA
+            case `/api/guia_idioma/${req.url.split('/')[3]}`: id = req.url.split('/')[3]; guia_idioma.actualizarPID(req,res,id); break;
+            case `/api/guia_idioma/pidi/${req.url.split('/')[4]}/${req.url.split('/')[5]}`: id = req.url.split('/')[4]; let idg = req.url.split('/')[5]; guia_idioma.actualizarPIDG(req,res,id,idg);
 
+            default:
+                res.writeHead(404, {'Content-Type': 'application/JSON'})
+                res.end(JSON.stringify({message: `La ruta ${req.url} no ha sido encontrada`}))
+            break;
+        }
     }
-    else if(req.url.match(/\/api\/guia_idioma\/pidi\/([0-9]+)\/([0-9]+)/) && req.method == 'PUT'){
-        const id = req.url.split('/')[4]
-        const idg = req.url.split('/')[5]
-        guia_idioma.actualizarPIDG(req,res,id,idg)
+    else if(req.method == 'DELETE'){
+        switch(req.url){
+            //VISITANTE
+            case req.url.match(/\/api\/visitante\/([0-9]+)/)[0]: const id = req.url.split('/')[3]; visitante.borrarPID(req,res,id); break;
+            //VISITA GUIADA
+            case req.url.match(/\/api\/visita_guiada\/([0-9]+)/)[0]:  id = req.url.split('/')[3]; visita_guiada.borrarPID(req,res,id); break;
+            //VISITA GUIADA IDIOMA
+            case req.url.match(/\/api\/visita_guiada_idioma\/([0-9]+)/)[0]: id = req.url.split('/')[3]; visita_guiada_idioma.borrarPID(req,res,id); break;
+            //VISITA GUIADA SALAS
+            case req.url.match(/\/api\/visita_guiada_salas\/([0-9]+)/)[0]: id = req.url.split('/')[3]; visita_guiada_salas.borrarPID(req,res,id); break;
+            //VISITA GUIADA VISITANTE
+            case req.url.match(/\/api\/visita_guiada_visitante\/([0-9]+)/)[0]: id = req.url.split('/')[3]; visita_guiada_visitante.borrarPID(req,res,id);
+            //IDIOMA
+            //NO ESTABLECIDO
+            //SALA
+            case req.url.match(/\/api\/sala\/([0-9]+)/): id = req.url.split('/')[3]; sala.borrarPID(req,res,id); break;
+            //GUIA
+            case req.url.match(/\/api\/guia\/([0-9]+)/): id = req.url.split('/')[3]; guia.borrarPID(req,res,id); break;
+            //GUIA IDIOMA
+            case req.url.match(/\/api\/guia_idioma\/([0-9]+)/): id = req.url.split('/')[3]; guia_idioma.borrarPIDI(req,res,id); break;
 
-    }
-    else if(req.url.match(/\/api\/guia_idioma\/([0-9]+)/) && req.method == 'DELETE'){
-        const id = req.url.split('/')[3]
-        guia_idioma.borrarPIDI(req,res,id)
-
-    }
-
-    else{
-        res.writeHead(404, {'Content-Type': 'application/JSON'})
-        res.end(JSON.stringify({message: 'Ruta no encontrada'}))
+            default:
+                res.writeHead(404, {'Content-Type': 'application/JSON'})
+                res.end(JSON.stringify({message: `La ruta ${req.url} no ha sido encontrada`}))
+            break;
+        }
     }
 
 }
@@ -247,3 +148,6 @@ module.exports = {
     APIHandler
 }
     
+
+
+

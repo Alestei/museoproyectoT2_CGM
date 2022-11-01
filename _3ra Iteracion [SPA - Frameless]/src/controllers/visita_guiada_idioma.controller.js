@@ -18,7 +18,7 @@ exports.crear = async (req, res) => {
         res.end(JSON.stringify(err))
        }else 
           res.writeHead(200, {'Content-Type': 'application/json'})
-          res.end(JSON.stringify(data))
+           res.end(JSON.stringify(data, null, '  '))
     });
   
 
@@ -36,7 +36,7 @@ exports.consultarTodos = (req,res) => {
       res.end(JSON.stringify(err))
      }else 
         res.writeHead(200, {'Content-Type': 'application/json'})
-        res.end(JSON.stringify(data))
+         res.end(JSON.stringify(data, null, '  '))
   });
 };
 
@@ -47,7 +47,7 @@ exports.consultarPID = (req,res, id) => {
       res.end(JSON.stringify(err))
      }else 
         res.writeHead(200, {'Content-Type': 'application/json'})
-        res.end(JSON.stringify(data))
+         res.end(JSON.stringify(data, null, '  '))
   });
 };
 
@@ -69,7 +69,7 @@ exports.actualizarPID = async (req, res, id) => {
         res.end(JSON.stringify(err))
        }else 
           res.writeHead(200, {'Content-Type': 'application/json'})
-          res.end(JSON.stringify(data))
+           res.end(JSON.stringify(data, null, '  '))
     });
   
 
@@ -87,6 +87,6 @@ exports.borrarPID = (req, res , id) => {
       res.end(JSON.stringify(err))
      }else 
         res.writeHead(200, {'Content-Type': 'application/json'})
-        res.end(JSON.stringify(data))
+         res.end(JSON.stringify(data, null, '  '))
   });
 };
