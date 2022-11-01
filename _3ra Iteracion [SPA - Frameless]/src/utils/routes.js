@@ -1,4 +1,4 @@
-//Require
+//Require 
 const idioma = require("../controllers/idioma.controller.js");
 const guia = require("../controllers/guia.controller.js");
 const guia_idioma = require("../controllers/guia_idioma.controller.js");
@@ -9,6 +9,8 @@ const visita_guiada_salas = require("../controllers/visita_guiada_salas.controll
 const visita_guiada_visitante = require("../controllers/visita_guiada_visitante.controller.js");
 const visitante = require("../controllers/visitante.controller.js");
 
+
+//Esto da pena, busca una mejor forma de hacerlo!!!!!!!
 const APIHandler = (req, res) => {
 
   //Visitante

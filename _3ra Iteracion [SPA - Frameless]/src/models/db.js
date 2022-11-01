@@ -18,8 +18,8 @@ mysqlConnection.connect(function (err){
     if(err){
         console.log('ERROR FATAL >>> ' + err.message + ' ||| Código de Error ' +err.code);
     }else{
-        console.log("Base de Datos Conectada.")
-        console.log("Te has conectado al servidor '" + dbConfig.HOST + "'")
+        console.log(">>> Base de Datos Conectada.")
+        console.log(">>> Te has conectado al servidor '" + dbConfig.HOST + "'")
     }
 
 })
