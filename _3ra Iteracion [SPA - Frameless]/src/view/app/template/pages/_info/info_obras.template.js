@@ -1,0 +1,48 @@
+export const PContent_info_obras = `
+<div class="flex-wrapper" style="background-color:rgba(17, 2, 2, 0.637);">
+<div id="content" style="color: white;">
+  <div id="pushbar" style="padding-left: 35px; padding-top: 35px; padding-right: 35px;" ;>
+
+   <center>
+    <label style="font-size:75px; ">Obras</label><br>
+    <label style="font-size:15px; ">&nbspComprueba nuestro refinado catálogo de obras dotadas de sentimiento humano.</label>
+   </center>
+    <br>
+    
+    <div id="pushbar" style="padding-left: 15px; padding-bottom: 30px; padding-right: 15px; font-size:15px; font-style: italic;" >
+      <div id="picFrame" class="imgbox" style="padding-top: 50px; ">
+        <img src="../style/img/art/mona_lisa.jpg" style="width:200px; height:300px" class="Mimg">
+          <h3 style="padding-left: 15px;">Mona Lisa</h3>
+          <span style="padding-left: 15px; padding-right:15px; text-align: justify;">
+            La Mona Lisa de Leonardo da Vinci es una de las pinturas más famosas del mundo, y con un nombre como ese, ¡no es de extrañar! El nombre Mona Lisa significa 'no hables' en italiano. Sin embargo, muchos han argumentado que esto no es cierto y que el nombre honra a la mujer detrás de la pintura. Algunos creen que el nombre honra a Lisa del Giocondo, la hija de Jean, amiga de da Vinci. Independientemente de su origen, esta famosa pintura nos ha brindado muchos conocimientos sobre la psique de da Vinci, así como numerosas pistas sobre la mujer detrás de ella.
+      
+          </span>
+          <span class="a_hear" id="ac_escuchar"></span>
+      </div>
+
+      <div id="picFrame" class="imgbox" style="padding-top: 50px;">
+        <img src="../style/img/art/creacion_adam.webp"  style="width:400px; height:300px" class="Mimg">
+        <h3 style="padding-left: 15px;">Creación de Adán</h3>
+          <span style=" padding-left: 15px; padding-right:15px; text-align: justify;">
+            Una de los frescos estrella de la Capilla Sixtina es esta representación del episodio bíblico del Génesis en el que Dios da vida al primer hombre.
+            Llama la atención la forma en que Miguel Ángel representa el medio de transporte de Dios: parece una nube, una nave espacial casi. Y por supuesto hay científicos que quieren ver en esa forma ovalada la representación del cerebro humano con su lóbulo frontal, su quiasma óptico, su 
+            hipófisis y su cerebelo. Otros ven un útero con un cordón umbilical recién cortado.
+          
+          </span>
+          <span class="a_hear" id="ac_escuchar"></span>
+      </div>
+
+      <div id="picFrame" class="imgbox" style="padding-top: 50px;">
+        <img src="../style/img/art/el_beso.jpeg"  style="width: 300px; height: 400px;" class="Mimg">
+       <h3 style="padding-left: 15px;">El beso</h3>
+        <span style="padding-left: 15px; padding-right:15px; text-align: justify;">
+          Tesoro nacional austríaco, El beso de Gustav Klimt es además la obra más conocida del artista, y una de las estrellas del Österreichische Belvedere de Viena, donde miles de personas se reúnen cada día para verlo cara a cara y quedar deslumbrados por esta magnífica creación del ser humano.
+          La obra representa a dos amantes a tamaño natural que están rodeados de oro. Es un ejemplo claro de “Periodo Dorado” de Klimt, inspirado en los mosaicos bizantinos que habían impresionado al artista en su viaje a Rávena.
+
+        </span>
+        <span class="a_hear" id="ac_escuchar"></span>
+      </div>
+
+  </div>
+</div>
+`

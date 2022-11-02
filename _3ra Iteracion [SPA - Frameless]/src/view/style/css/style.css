@@ -100,9 +100,7 @@ header.page-header > h1 {
     margin: 2%;
 }
 
-main {
-    font: 1rem 'Fira Sans', sans-serif;
-}
+
 article {
     min-height: 100%;
     display: grid;
