@@ -23,7 +23,7 @@ import { PContent_admin_salas } from './template/pages/_admin/admin_salas.L.js';
 const D = document;
 
 D.addEventListener('DOMContentLoaded', (event) => {
-    async function main() {
+    async function DOMWorker(callback) {
         let DOM = await App(PContent_index)
         let DOMHF = await AppStatic(PContent_header,PContent_footer)
         let DOMSC = ''
@@ -58,9 +58,16 @@ D.addEventListener('DOMContentLoaded', (event) => {
                 if(elem.id == 'salas')  await App(PContent_admin_salas)
             });
         });
+
+        callback(main)
+    }
+   
+    async function main(){
         
     }
 
-    main();
+
+
+    DOMWorker(main)
 });
 

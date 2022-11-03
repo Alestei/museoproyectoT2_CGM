@@ -1,8 +1,8 @@
 const Visita_Guiada = require("../models/visita_guiada.model.js");
-const {getPostData} = require('../utils/utils')
+
 exports.crear = async (req, res) => {
   try {
-    const body =  await getPostData(req); 
+    const body =  await req.body;  
     const {nombreVisita, FHora, ID_guia} = JSON.parse(body); 
     const visita_guiada = new Visita_Guiada({
       nombreVisita,
@@ -62,7 +62,7 @@ exports.obtenerUID = (req,res) => {
 
 exports.actualizarPID = async (req, res, id) => {
   try {
-    const body =  await getPostData(req); 
+    const body =  await req.body;  
     const {nombreVisita, FHora, ID_guia} = JSON.parse(body); 
     const visita_guiada = new Visita_Guiada({
       nombreVisita,

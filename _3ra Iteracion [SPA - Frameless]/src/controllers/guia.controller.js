@@ -1,9 +1,8 @@
 const Guia = require("../models/guia.model.js");
-const {getPostData} = require('../utils/utils')
 
 exports.crear = async (req, res) => {
   try {
-    const body =  await getPostData(req); 
+    const body =  await req.body;  
     const {nombre, apellido} = JSON.parse(body); 
     const guia = new Guia({
       nombre,
@@ -61,7 +60,7 @@ exports.consultarPID = (req,res,id) => {
 
 exports.actualizarPID = async (req, res, id) => {
   try {
-    const body =  await getPostData(req); 
+    const body =  await req.body;  
     const {nombre, apellido} = JSON.parse(body); 
     const guia = new Guia({
       nombre,

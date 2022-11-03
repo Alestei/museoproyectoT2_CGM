@@ -1,9 +1,8 @@
 const Visita_Guiada_Salas = require("../models/visita_guiada_salas.model.js");
-const {getPostData} = require('../utils/utils')
 
 exports.crear = async (req, res) => {
   try {
-    const body =  await getPostData(req); 
+    const body =  await req.body;  
     const {ID_VG, ID_sala} = JSON.parse(body); 
 
     const visita_guiada_salas = new Visita_Guiada_Salas({
@@ -54,7 +53,7 @@ exports.consultarPID = (req,res, id) => {
 
 exports.actualizarPID = async (req, res) => {
   try {
-    const body =  await getPostData(req); 
+    const body =  await req.body;  
     const {ID_VG, ID_sala} = JSON.parse(body); 
 
     const visita_guiada_salas = new Visita_Guiada_Salas({

@@ -1,9 +1,8 @@
 const GuiaIdioma = require("../models/guia_idioma.model.js");
-const {getPostData} = require('../utils/utils')
 
 exports.crear = async (req, res) => {
   try {
-    const body =  await getPostData(req); 
+    const body =  await req.body;  
     const {ID_guia, ID_idioma} = JSON.parse(body); 
     const guiaIdioma = new GuiaIdioma({
       ID_guia,
@@ -61,7 +60,7 @@ exports.consultarIPID = (req,res, id) => {
 
 exports.actualizarPID = async (req, res, id) => {
   try {
-    const body =  await getPostData(req); 
+    const body =  await req.body;  
     const {ID_guia, ID_idioma} = JSON.parse(body); 
 
     const guiaIdioma = new GuiaIdioma({
@@ -86,7 +85,7 @@ exports.actualizarPID = async (req, res, id) => {
 
 exports.actualizarPIDG = async (req, res, idi, idg) => {
   try {
-    const body =  await getPostData(req); 
+    const body =  await req.body;  
     const {ID_guia, ID_idioma} = JSON.parse(body); 
 
     const guiaIdioma = new GuiaIdioma({

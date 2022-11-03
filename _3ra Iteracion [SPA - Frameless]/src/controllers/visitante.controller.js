@@ -1,9 +1,8 @@
 const Visitante = require("../models/visitante.model.js");
-const {getPostData} = require('../utils/utils')
 
 exports.crear =  async (req, res) => {
     try {
-        const body =  await getPostData(req); 
+        const body =  await req.body; 
         const {nombre, apellido, correo} = JSON.parse(body); 
         const visitante = new Visitante({
             nombre,
@@ -64,7 +63,7 @@ exports.consultarPID = (req,res,id) => {
 
 exports.actualizarPID = async (req, res, id) => {
   try {
-    const body =  await getPostData(req); 
+    const body =  await req.body; 
     const {nombre, apellido, correo} = JSON.parse(body); 
     
     const visitante = new Visitante({

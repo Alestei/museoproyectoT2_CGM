@@ -68,8 +68,8 @@ Visitante.actualizarPID = (id, newData, result) => {
       result(err, null);
       return;
     }else{
-      console.log("Registro actualizado -> ", {id: res.insertId, ...newData})
-      result(null,{id: res.insertId, ...newData} );
+      console.log("Registro actualizado -> ", {id: id, ...newData})
+      result(null,{id: id, ...newData} );
     }
   });
 

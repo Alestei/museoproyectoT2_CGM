@@ -3,7 +3,7 @@ const {getPostData} = require('../utils/utils')
 
 exports.crear = async (req, res) => {
   try {
-    const body =  await getPostData(req); 
+    const body =  await req.body;  
     const {nombre_sala} = JSON.parse(body); 
     const sala = new Sala({
       nombre_sala
@@ -61,7 +61,7 @@ exports.consultarPID = (req,res, id) => {
 
 exports.actualizarPID = async (req, res, id) => {
   try {
-    const body =  await getPostData(req); 
+    const body =  await req.body;  
     const {nombre_sala} = JSON.parse(body); 
     const sala = new Sala({
       nombre_sala

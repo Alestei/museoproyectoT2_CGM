@@ -9,6 +9,97 @@ const visita_guiada_salas = require("../controllers/visita_guiada_salas.controll
 const visita_guiada_visitante = require("../controllers/visita_guiada_visitante.controller.js");
 const visitante = require("../controllers/visitante.controller.js");
 
+function Router (){
+    const Routes = {
+        GET: {},
+        POST: {},
+        PUT: {},
+        DEL: {}
+    };
+    
+    const get = (url, callback) => {
+      Routes.GET[url] = callback;
+    }
+    
+    
+    const post = (url, callback) => {
+      Routes.POST[url] = callback;
+    }
+    
+    
+    const put = (url, callback) => {
+      Routes.PUT[url] = callback;
+    }
+    
+    
+    const del = (url, callback) => {
+      Routes.DEL[url] = callback;
+    }
+    
+    return {
+      'Routes': Routes,
+      'get': get,
+      'post': post,
+      'put': put,
+      'delete': del,
+      'searchRoute':  (url, method) => {
+         let route; 
+            switch( method ) {
+                case 'GET':  route = Routes.GET[url];    break;
+                case 'POST': route = Routes.POST[url];   break;
+                case 'PUT': route = Routes.PUT[url];     break;
+                case 'DELETE': route = Routes.DEL[url];  break;
+        
+            }          
+          return route;
+      }
+    }
+    
+}
+
+
+const router = Router();
+const routeSetter =  async (req, res, route) => {
+    return new Promise((resolve, reject) =>{
+    //VISITANTE
+    router.post('/api/visitante', (req,res) =>      {visitante.crear(req,res)})
+    router.get('/api/visitante', (req,res) =>       {visitante.consultarTodos(req,res)})
+    router.get('/api/visitante/uid',  (req,res) =>  {visitante.obtenerUID(req,res)})
+    router.get(`/api/visitante/${req.url.split('/')[3]}`, (req,res) =>     {const ID =req.url.split('/')[3]; visitante.consultarPID(req,res, ID)});
+    router.put(`/api/visitante/${req.url.split('/')[3]}`, (req,res) =>     {const ID =req.url.split('/')[3]; visitante.actualizarPID(req, res, ID)});
+    router.delete(`/api/visitante/${req.url.split('/')[3]}`, (req,res) =>  {const ID =req.url.split('/')[3]; visitante.borrarPID(req, res, ID)});
+
+    //VISITA GUIADA
+    router.post("/api/visita_guiada", (req, res) =>    { visita_guiada.crear(req, res)});
+    router.get("/api/visita_guiada",  (req, res) =>    { visita_guiada.consultarTodos(req, res)});
+    router.get("/api/visita_guiada/uid", (req, res) => { visita_guiada.obtenerUID(req,res)});
+    router.get(`/api/visita_guiada/${req.url.split('/')[3]}`, (req, res) =>    {const ID =req.url.split('/')[3]; visita_guiada.consultarPID(req, res, ID)});
+    router.put(`/api/visita_guiada/${req.url.split('/')[3]}`, (req, res) =>    {const ID =req.url.split('/')[3]; visita_guiada.actualizarPID(req, res, ID)});
+    router.delete(`/api/visita_guiada/${req.url.split('/')[3]}`, (req, res) => {const ID =req.url.split('/')[3]; visita_guiada.borrarPID(req, res, ID)});
+   
+    resolve(APIHandler(req, res, route))
+    }).catch(error => console.log())  
+
+
+}
+
+const APIHandler =  async (_req , _res, route) => {
+   // await routeSetter(_req, _res)
+    await route(_req, _res)
+    
+
+}
+
+
+
+module.exports = {
+    router,
+    routeSetter,
+    APIHandler
+}
+
+
+/*
 
 //Esto da pena, busca una mejor forma de hacerlo!!!!!!!
 const APIHandler = (req, res) => {
@@ -147,7 +238,7 @@ const APIHandler = (req, res) => {
 module.exports = {
     APIHandler
 }
-    
+*/
 
 
 
