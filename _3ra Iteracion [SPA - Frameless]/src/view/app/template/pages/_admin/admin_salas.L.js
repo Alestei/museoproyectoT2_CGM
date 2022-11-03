@@ -37,4 +37,28 @@ export const PContent_admin_salas = `
 </div>
 `
 
-    
+export async function PContent_admin_salas_func(){
+    try {
+        fetch('/api/sala')
+                .then((response) => response.json())
+                    .then((data) => {
+                        for(let x in data){
+                        
+                        document.getElementById('datos').innerHTML +=  
+                        `<tr>
+                                <td>${data[x].ID_sala}</td>
+                                <td>${data[x].nombre_sala}</td>
+                    
+                                <td>
+                                    <img id="${data[x].ID_sala}" src="../style/img/acc-minus.png" style="width:30px; height:30px" onclick="deleteEvent(event, '${data[x].nombre_sala}' )">
+                                    <a id="${data[x].ID_sala}" href="admin_salas.M.html?id=${data[x].ID_sala}"><img  src="../style/img/pencil.png" style="width:30px; height:30px"></a>
+                                </td>
+                            </tr>
+                            `;
+                        
+                        }
+                });
+    } catch (error) {
+        console.log(error)
+    }
+}

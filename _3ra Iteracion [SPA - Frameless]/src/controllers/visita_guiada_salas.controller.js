@@ -51,7 +51,7 @@ exports.consultarPID = (req,res, id) => {
 };
 
 
-exports.actualizarPID = async (req, res) => {
+exports.actualizarPID = async (req, res, id) => {
   try {
     const body =  await req.body;  
     const {ID_VG, ID_sala} = JSON.parse(body); 

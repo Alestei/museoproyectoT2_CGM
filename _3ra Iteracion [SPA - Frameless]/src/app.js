@@ -15,7 +15,7 @@ const {prepareFile} = require('./utils/fileHandler')
 const server = http.createServer(async (req, res) => {
 
     if(req.url.split('/')[1] === 'api'){
-       
+        routes.routeSetter(req, res)
         let URIDATA = {
             parsedURL: url.parse(req.url, true),
             path: '',
@@ -37,10 +37,10 @@ const server = http.createServer(async (req, res) => {
           const route =
             typeof router.searchRoute(URIDATA.path, req.method) !== "undefined" 
             ? router.searchRoute(URIDATA.path, req.method) 
-            : (req, res) => { res.writeHead(404); res.end('NOT FOUND') };
+            : (req, res) => { console.warn('⚠ |ERROR 404 -' + req.url )};
        
       
-            routes.routeSetter(req, res, route)
+            route(req, res)
         });
                 
                 

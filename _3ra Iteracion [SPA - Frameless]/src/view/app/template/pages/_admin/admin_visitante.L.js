@@ -37,4 +37,30 @@ export const PContent_admin_visitante = `
 
 `
 
+export async function PContent_admin_visitante_func(){
+    try {
+        fetch('/api/visitante')
+        .then((response) => response.json())
+        .then((data) => {
+            for(let x in data){
+              
+               document.getElementById('datos').innerHTML +=  
+               `<tr>
+                    <td>${data[x].Nombre}</td>
+                    <td>${data[x].Apellido}</td>
+                    <td>${data[x].Correo}</td>
+                    <td>
+                        <img id="${data[x].ID_VISITANTE}" src="../style/img/acc-minus.png" style="width:30px; height:30px" onclick="deletePerson(event, '${data[x].Nombre + ' ' + data[x].Apellido}')">
+                        <a   id="${data[x].ID_VISITANTE}" href="admin_visitantes.M.html?id=${data[x].ID_VISITANTE}"><img  src="../style/img/pencil.png" style="width:30px; height:30px"></a>
+                    </td>
+                </tr>
+                `;
+               
+            }
+        });
 
+
+    } catch (err) {
+        
+    }
+}

@@ -34,4 +34,51 @@ export const PContent_admin_guias = `
 </div>
 `
 
+export async function PContent_admin_guias_func(){
+    try {
+        let idiVec = [];    
+        async function getID_Idioma(id){     
+                     
+           await getApiInfo(`/api/guia_idioma/lang/${id}`).then(langList => {
+               
+               for(let x in langList){
+                   idiVec.push(langList[x].ID_idioma)
+               }
+
+               for(let x in idiVec){
+                   if(idiVec[x] == 1){ idiVec[x] = 'Español'}
+                   if(idiVec[x] == 2){ idiVec[x] = 'Inglés'}
+                   if(idiVec[x] == 3){ idiVec[x] = 'Portugués'}
+               }
+               
+           }); 
+           return idiVec 
+       }
+
+
+
+      
+       getApiInfo('/api/guia').then(guia => {
+                
+               for(let x in guia){
+                   getID_Idioma(guia[x].ID_Guia).then(result => { 
+                       document.getElementById('datos').innerHTML +=  `
+                       <tr>
+                           <td>${guia[x].nombre}</td>
+                           <td>${guia[x].apellido}</td>
+                           <td>${result.join('<br>')}</td>
+                           <td>
+                               <img id="${guia[x].ID_Guia}" src="../style/img/acc-minus.png" style="width:30px; height:30px" onclick="deleteEvent(event, '${guia[x].nombre + ' ' + guia[x].apellido}')">
+                               <a id="${guia[x].ID_Guia}" href="admin_guias.M.html?id=${guia[x].ID_Guia}"><img  src="../style/img/pencil.png" style="width:30px; height:30px"></a>
+                           </td>
+                       </tr>`;
+                       result.length = 0;
+                   })
+                  
+               }
+           })
+    } catch (error) {
+        console.log(error)
+    }
+}
     
