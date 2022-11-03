@@ -19,10 +19,12 @@ import { PContent_admin_guias } from './template/pages/_admin/admin_guias.L.js';
 import { PContent_admin_vg } from './template/pages/_admin/admin_vis_guiada.L.js';
 import { PContent_admin_visitante } from './template/pages/_admin/admin_visitante.L.js';
 import { PContent_admin_salas } from './template/pages/_admin/admin_salas.L.js';
+import { establishBG } from '../style/dresser.js';
 
 const D = document;
 
 D.addEventListener('DOMContentLoaded', (event) => {
+    establishBG();
     async function DOMWorker(callback) {
         let DOM = await App(PContent_index)
         let DOMHF = await AppStatic(PContent_header,PContent_footer)

@@ -1,9 +1,9 @@
 export const PContent_footer = `
 <footer>
             
-<p>2022, un trabajo para la Olimpíada Nacional.</p>
+<p>2022. Un Trabajo para la Evaluación de Capacidades Profesionales</p>
+<small>Créditos Imágenes : Picsum Splash</small>
 <br>
 
-<small>Créditos IMG: Google Imagenes</small>
 </footer>
 `

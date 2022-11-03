@@ -1,5 +1,5 @@
 export const PContent_info_guias =  `
-<div class="flex-wrapper" style="background-color:rgba(17, 2, 2, 0.637);">
+<div class="flex-wrapper" style="background-color:rgba(17, 2, 2);">
       <div id="content" style="color: white;">
         <div id="pushbar" style="padding-left: 35px; padding-top: 35px; padding-right: 35px;" ;>
     
