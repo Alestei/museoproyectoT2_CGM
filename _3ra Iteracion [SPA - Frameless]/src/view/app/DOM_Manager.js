@@ -15,19 +15,21 @@ export function AppStatic(DOMH,DOMF) {
         
     })  
 }
-export function App (DOM, DOMID)  {
+export function App (DOM, DOMID, title)  {
     
     return new Promise((resolve, reject) => {
         try {
             if(DOM){
                 const AC = document.getElementById('appcontent')
-           
+                const Title = document.getElementById('pageTitle')
+
+                if(title){Title.innerHTML =   'Museo | ' + title}else{Title.innerHTML = 'Museo'}
                 AC.setAttribute('data-id', DOMID)
                 AC.innerHTML = DOM;
 
-            
                 resolve('Content Loaded')
             }
+            
            
         } catch (error) {
             console.log(error)
@@ -40,15 +42,16 @@ export function App (DOM, DOMID)  {
 export function DOMObserver(){
     const observer = new MutationObserver((mutationList) => {
         mutationList.forEach((mutation) => {
+           // console.log(mutation.type);
         if (mutation.addedNodes.length) {
-           
-            console.log('<DOM Change> - <add>',  mutation.addedNodes[0].parentElement.dataset);
+           // console.log('<DOM Change> - <add>',  mutation.addedNodes[0].parentElement.dataset);
             main(mutation.addedNodes[0].parentElement.dataset.id)
         }
         if (mutation.removedNodes.length) {
-           console.log('<DOM Change> - <supress>', mutation.addedNodes[0]);
+           //console.log('<DOM Change> - <change>', mutation.removedNodes);
+
         }
-        //console.log(mutation.type);
+      
         })
     });
     
@@ -58,7 +61,7 @@ export function DOMObserver(){
     const observerOptions = {
         attributes: false,
         childList: true,
-        subtree: false
+        subtree: false,
     };
     
      observer.observe(DOM, observerOptions);

@@ -1,8 +1,10 @@
 export const PContent_header = `
 <div id="headerLogo" style="background-color: rgb(132 7 21);">
 
-    <a href="../index.html"><header class="page-header" style="align-items:center">
-      <center><img src="../style/img/logo.png" style="width:120px; height:120px;"></center>
+    <a class="index" id="index"><header class="page-header" style="align-items:center">
+      <center>
+        <img src="../style/img/logo.png" style="width:120px; height:120px;">
+      </center>
     </a>
  
    
@@ -18,9 +20,9 @@ export const PContent_header = `
              <label>Información</label>
                 
                   <ul class="dropdown">    
-                    <li><a class="Info" id="access" >Accesibilidad</a></li>
-                    <li><a class="Info" id="obras" >Obras</a></li>
-                    <li><a class="Info" id="guias" >Mapa</a></li>
+                    <li><a class="Info" id="info_access" >Accesibilidad</a></li>
+                    <li><a class="Info" id="info_obras" >Obras</a></li>
+                    <li><a class="Info" id="info_guias" >Mapa</a></li>
                   </ul>
           </li>
 
@@ -29,7 +31,7 @@ export const PContent_header = `
              <label>Servicios</label>
          
                 <ul class="dropdown">
-                  <li><a class="Service" id="guias" >Visitas Guiadas</a></li>
+                  <li><a class="Service" id="servi_guias" >Visitas Guiadas</a></li>
                 </ul>
          </li>
 
@@ -37,10 +39,10 @@ export const PContent_header = `
               <label id="adminlabel">Administración</label>
 
                 <ul id="admindrop" class="dropdown" >    
-                <li><a class="Admin" id="guias">Administrar Guias</a></li>
-                <li><a class="Admin" id="vis_guiada" >Administrar Visitas</a></li>
-                <li><a class="Admin" id="visitante" >Administrar Visitante</a></li>
-                <li><a class="Admin" id="salas" >Administrar Salas</a></li>
+                <li><a class="Admin" id="admin_guias">Administrar Guias</a></li>
+                <li><a class="Admin" id="admin_vg" >Administrar Visitas</a></li>
+                <li><a class="Admin" id="admin_visitante" >Administrar Visitante</a></li>
+                <li><a class="Admin" id="admin_salas" >Administrar Salas</a></li>
                 </ul>
           </li>
       </div>

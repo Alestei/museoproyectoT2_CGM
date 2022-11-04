@@ -116,7 +116,7 @@ const routeSetter =   (req, res) => {
     router.get(`/api/guia_idioma`, (req,res) =>  {guia_idioma.consultarTodos(req,res)});
     router.get(`/api/guia_idioma/lang/${req.url.split('/')[4]}`, (req,res) => {const ID =req.url.split('/')[4]; guia_idioma.consultarIPID(req,res,ID)});
     router.get(`/api/guia_idioma/${req.url.split('/')[3]}`, (req,res) => {const ID =req.url.split('/')[3]; guia_idioma.consultarPID(req,res,ID)});
-    router.get(`/api/guia_idioma/${req.url.split('/')[3]}`, (req,res) => {const ID =req.url.split('/')[3]; guia_idioma.actualizarPID(req,res,ID)});
+    router.put(`/api/guia_idioma/${req.url.split('/')[3]}`, (req,res) => {const ID =req.url.split('/')[3]; guia_idioma.actualizarPID(req,res,ID)});
     router.put(`/api/guia_idioma/pidg/${req.url.split('/')[4]}/${req.url.split('/')[5]}`, (req,res) => {const IDI =req.url.split('/')[4]; const IDG =req.url.split('/')[5];  guia_idioma.actualizarPIDG(req,res,IDI,IDG)});
     router.delete(`/api/guia_idioma/${req.url.split('/')[3]}`, (req,res) => {const ID =req.url.split('/')[3]; guia_idioma.borrarPID(req,res,ID)});
     router.delete(`/api/guia_idioma/pidi/${req.url.split('/')[4]}/${req.url.split('/')[5]}`, (req,res) => {const IDI =req.url.split('/')[4]; const IDG =req.url.split('/')[5]; guia_idioma.borrarPIDI(req,res,IDI,IDG)});
