@@ -15,7 +15,7 @@ import {App, AppStatic, DOMObserver} from './DOM_Manager.js'
     import { PContent_info_obras } from './template/pages/_info/info_obras.template.js';
     import { PContent_info_guias } from './template/pages/_info/info_guias.template.js';
     //SERVI
-    import { PContent_servi_guias_add, PContent_servi_guias_add_send, PContent_servi_guias_func } from './template/pages/_servi/servi_guias.js';
+    import { PContent_servi_guias_add, PContent_servi_guias_add_send, PContent_servi_guias_func, PContent_servi_guias_load } from './template/pages/_servi/servi_guias.js';
     //ADMIN
 
     import { guia_deleteEvent, PContent_admin_guias_func, PContent_admin_guias_func_load, PContent_admin_guias_func_load_send, PContent_admin_guias_func_modify, PContent_admin_guias_func_modify_send } from './template/pages/_admin/admin_guias.js';
@@ -168,12 +168,14 @@ async function formWindowOperation(domID){
                 break;
                 
                 case 'admin_salas' : 
-                    await App(await PContent_admin_salas_load(), 'admin_salas_l', 'Crg. Salas')
-                    await PContent_admin_salas_load_send();
+                    await App(await PContent_admin_salas_load(elem.id), 'admin_salas_l', 'Crg. Salas')
+                    await PContent_admin_salas_load_send(elem.id);
                 break;
                 
                //Servi
-               
+                case 'servi_guias' : 
+                    await App(await PContent_servi_guias_load(elem.id), 'servi_guias_ob', `Obras en Sala ${elem.id.split('_')[1]}`)
+                break;
               
 
             }

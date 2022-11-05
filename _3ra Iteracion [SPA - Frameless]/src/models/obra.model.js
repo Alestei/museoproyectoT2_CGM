@@ -14,8 +14,8 @@ Obra.crear = (newObra, result) => {
       return;
     }
 
-    console.log("Registro en la Tabla Creado: ", { id: res.insertId, ...newGuia });
-    result(null, { id: res.insertId, ...newGuia });
+    console.log("Registro en la Tabla Creado: ", { id: res.insertId, ...newObra });
+    result(null, { id: res.insertId, ...newObra });
   });
 };
 //

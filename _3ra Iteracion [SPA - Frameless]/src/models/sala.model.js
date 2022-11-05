@@ -45,6 +45,19 @@ Sala.consultarTodos =  result => {
   });
 };
 //
+Sala.obtenerUID = (result) => {
+  sql.query("SELECT ID_sala FROM sala ORDER BY ID_sala DESC LIMIT 1; ", (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+    
+    console.log("Registros Obtenidos ", res);
+    result(null, res);
+  });
+};
+//
 Sala.actualizarPID = (id, newData, result) => {
   sql.query("UPDATE sala SET nombre_sala = ? WHERE ID_sala = ?", 
   [newData.nombre_sala, id], (err, res) => {

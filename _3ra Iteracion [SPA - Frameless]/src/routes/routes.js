@@ -111,6 +111,7 @@ const routeSetter =   (req, res) => {
     //SALA
     router.post(`/api/sala`, (req,res) => {sala.crear(req,res)});
     router.get(`/api/sala`, (req,res) => {sala.consultarTodos(req,res)});
+    router.get(`/api/sala/uid/`, (req,res) => {sala.obtenerUID(req,res)});
     router.get(`/api/sala/${req.url.split('/')[3]}`, (req,res) => {const ID =req.url.split('/')[3]; sala.consultarPID(req,res,ID)});
     router.put(`/api/sala/${req.url.split('/')[3]}`, (req,res) => {const ID =req.url.split('/')[3]; sala.actualizarPID(req,res,ID)});
     router.delete(`/api/sala/${req.url.split('/')[3]}`, (req,res) => {const ID =req.url.split('/')[3]; sala.borrarPID(req,res,ID)});
@@ -160,7 +161,7 @@ const routeSetter =   (req, res) => {
     //SALA_OBRA
     router.post("/api/sala_obra", (req,res) =>  {sala_obra.crear(req,res)});
     router.get("/api/sala_obra", (req,res) => { sala_obra.consultarTodos(req,res)});
-    router.get("/api/sala_obra/uid/", (req,res) =>  {obrsala_obraa.obtenerUID(req,res)});
+    router.get("/api/sala_obra/uid/", (req,res) =>  {sala_obra.obtenerUID(req,res)});
     router.get(`/api/sala_obra/${req.url.split('/')[3]}`, (req,res) =>  {const ID = req.url.split('/')[3]; sala_obra.consultarPID(req,res,ID)});
     router.put(`/api/sala_obra/${req.url.split('/')[3]}`, (req,res) =>  {const ID = req.url.split('/')[3]; sala_obra.actualizarPID(req,res,ID)});
     router.delete(`/api/sala_obra/${req.url.split('/')[3]}`, (req,res) =>  {const ID = req.url.split('/')[3]; sala_obra.borrarPID(req,res,ID)});

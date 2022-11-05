@@ -15,8 +15,8 @@ Sala_obra.crear = (newSalaObra, result) => {
       return;
     }
 
-    console.log("Registro en la Tabla Creado: ", { id: res.insertId, ...newGuia });
-    result(null, { id: res.insertId, ...newGuia });
+    console.log("Registro en la Tabla Creado: ", { id: res.insertId, ...newSalaObra });
+    result(null, { id: res.insertId, ...newSalaObra });
   });
 };
 //
@@ -34,7 +34,7 @@ Sala_obra.obtenerUID = (result) => {
 };
 //
 Sala_obra.consultarPID =  (id,result) => {
-  sql.query("SELECT * FROM sala_obra WHERE ID_obra = ?", [id], (err, res) => {
+  sql.query("SELECT * FROM sala_obra WHERE ID_sala = ?", [id], (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);

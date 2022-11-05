@@ -1,7 +1,7 @@
 class servi_guias{
     list(data){
         return `
-            <div class="flex-wrapper" style="background-color:rgba(17, 2, 2, 0.637);">
+    <div class="flex-wrapper" style="background-color:rgba(17, 2, 2, 0.637);">
         <div id="content" style="color: white; text-align: center;">
             <div id="pushbar" style="padding-left: 35px; padding-top: 35px; padding-right: 35px;" ;>
         
@@ -30,6 +30,7 @@ class servi_guias{
             
             </div>
         </div>
+    </div>
         `
     }
 
@@ -67,6 +68,46 @@ class servi_guias{
     </div>
 </div>
         `
+    }
+
+    load(data){
+        return `
+        <div class="flex-wrapper" style="background-color:rgba(17, 2, 2, 0.637);">
+            <div id="content" style="color: white; text-align: center;">
+                <div id="pushbar" style="padding-left: 35px; padding-top: 35px; padding-right: 35px;" ;>
+          
+          <center>
+          </a><h2>Obras en ${data.sala}</h2>
+          <p>&nbsp</p>
+         
+                   <center>
+                  <table class="MTable">
+                      <thead>
+                          <tr>
+                              <th>Obras en Sala</th>
+                          </tr>
+                      </thead>
+                      <tbody id="datos">
+                        ${data.tabla}
+                      </tbody>
+                  </table>
+             
+          
+           <p>&nbsp</p>
+           <a l-id="button1" id="1" class="MButton" >Volver</a>
+          <p>&nbsp</p>
+         
+           
+          </center>
+   
+      <br>
+      
+      
+      </div>
+    </div>
+   </div>
+        `;
+    
     }
 }
 
@@ -113,19 +154,21 @@ export async function PContent_servi_guias_func(){
             
                 for(let x in vg){ 
                     getGuia(vg[x].ID_guia).then(response => {
-                        //console.log(response[0] + " - " + x)
-                    newContent +=  `
-                    <tr>
-                        <td id="vg${x}">${vg[x].nombreVisita}</td>
-                        <td>${vg[x].FHora}</td>
-                        <td>${response[0]}</td>
-                        <td id="idioma${x}">
-                        <td id="sala${x}">
-                            <td>
-                                <img md-id="${vg[x].ID_VG}" id="${vg[x].ID_VG}" src="../style/img/acc-plus.png" style="width:30px; height:30px">
-                            </td>
-                    `;
-            
+                        let fecha = Date.parse(vg[x].FHora)
+                        fecha = new Date(fecha).toUTCString()
+                        newContent +=  `
+                        <tr>
+                            <td id="vg${x}">${vg[x].nombreVisita}</td>
+                            <td>${fecha}</td>
+                            <td>${response[0]}</td>
+                            <td id="idioma${x}">
+                            <td id="sala${x}">
+                                <td>
+                                    <img title="Enlistarse"   md-id="${vg[x].ID_VG}" id="${vg[x].ID_VG}" src="../style/img/acc-plus.png" style="width:30px; height:30px">
+                                    <img title="Listar Obras" l-id="ob_${vg[x].ID_VG}" id="ob_${vg[x].ID_VG}" src="../style/img/list.png" style="width:30px; height:30px">
+                                </td>
+                        `;
+                
                     })
             
                 }
@@ -183,6 +226,7 @@ export async function PContent_servi_guias_add(QueryID){
         
     }
 }
+
  
 export async function PContent_servi_guias_add_send(QueryID){
     try {
@@ -211,4 +255,30 @@ export async function PContent_servi_guias_add_send(QueryID){
     }
 }
 
+export async function PContent_servi_guias_load(queryID){
+    try {
+            let newContent = {
+                sala: '',
+                tabla: ''
+            };
+
+           return getApiInfo('/api/sala_obra/' + queryID.split('_')[1]).then(async r => {
+                const data2 = await getApiInfo('/api/sala/' + queryID.split('_')[1]);
+                newContent.sala = data2[0].nombre_sala;
+                for(let x in r){
+                    const data = await getApiInfo('/api/obra/' + r[x].ID_obra);
+                    
+                    newContent.tabla += `
+                        <tr>
+                            <td>${data[0].nombreObra}</td>
+                        </tr>
+                    `
+                }
+                
+                return newContent
+            }).then(newContent => {const content = new servi_guias(); return `${content.load(newContent)}`})
+
+    } catch (error) {
         
+    }
+}
