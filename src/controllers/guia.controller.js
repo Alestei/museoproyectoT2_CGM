@@ -1,107 +1,96 @@
 const Guia = require("../models/guia.model.js");
 
-exports.crear = (req, res) => {
-  // Validate request
-  if (!req.body) {
-    res.status(400).send({
-      message: "El contenido no puede ser vacío"
+exports.crear = async (req, res) => {
+  try {
+    const body =  await req.body;  
+    const {nombre, apellido} = JSON.parse(body); 
+    const guia = new Guia({
+      nombre,
+      apellido
     });
-  }
+    
+    Guia.crear(guia, (err, data) => {
+      if (err){
+        res.writeHead(400, {'Content-Type': 'application/json'})
+        res.end(JSON.stringify(err))
+       }else 
+          res.writeHead(200, {'Content-Type': 'application/json'})
+          res.end(JSON.stringify(data, null, '  '))
+    });
 
-  // Crear 
-  const guia = new Guia({
-    nombre : req.body.nombre,
-    apellido : req.body.apellido,
-  });
-
- 
-  Guia.crear(guia, (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Error al crear registro."
-      });
-    else res.send(data);
-  });
+} catch (error) {
+    console.log(error)
+}
 
 };
 
 exports.consultarTodos = (req,res) => {
     Guia.consultarTodos( (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Error en la consulta."
-      });
-      else res.send(data);
+      if (err){
+        res.writeHead(400, {'Content-Type': 'application/json'})
+        res.end(JSON.stringify(err))
+       }else 
+          res.writeHead(200, {'Content-Type': 'application/json'})
+          res.end(JSON.stringify(data, null, '  '))
     });
 };
 
 exports.obtenerUID = (req,res) => {
   Guia.obtenerUID((err, data) => {
-  if (err)
-    res.status(500).send({
-      message:
-        err.message || "Error en la consulta."
-    });
-    else res.send(data);
+    if (err){
+      res.writeHead(400, {'Content-Type': 'application/json'})
+      res.end(JSON.stringify(err))
+     }else 
+        res.writeHead(200, {'Content-Type': 'application/json'})
+        res.end(JSON.stringify(data, null, '  '))
   });
 };
 
-exports.consultarPID = (req,res) => {
-    Guia.consultarPID(req.params.id, (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Error en la consulta."
-      });
-      else res.send(data);
+exports.consultarPID = (req,res,id) => {
+    Guia.consultarPID(id, (err, data) => {
+      if (err){
+        res.writeHead(400, {'Content-Type': 'application/json'})
+        res.end(JSON.stringify(err))
+       }else 
+          res.writeHead(200, {'Content-Type': 'application/json'})
+          res.end(JSON.stringify(data, null, '  '))
     });
 };
 
 
-exports.actualizarPID = (req, res) => {
-  // Validate request
-  if (!req.body) {
-    res.status(400).send({
-      message: "El contenido no puede ser vacío"
+exports.actualizarPID = async (req, res, id) => {
+  try {
+    const body =  await req.body;  
+    const {nombre, apellido} = JSON.parse(body); 
+    const guia = new Guia({
+      nombre,
+      apellido
     });
-  }
+    
+    Guia.actualizarPID(id, guia, (err, data) => {
+      if (err){
+        res.writeHead(400, {'Content-Type': 'application/json'})
+        res.end(JSON.stringify(err))
+       }else 
+          res.writeHead(200, {'Content-Type': 'application/json'})
+          res.end(JSON.stringify(data, null, '  '))
+    });
 
-  // Nuevos datos 
-  const guia = new Guia({
-    nombre : req.body.nombre,
-    apellido : req.body.apellido,
-  });
-
- 
-  Guia.actualizarPID(req.params.id, guia, (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Error en la actualización del registro con ID " + req.params.id
-      });
-    else res.send(data);
-  });
+} catch (error) {
+    console.log(error)
+}
 
 };
 
-exports.borrarPID = (req, res) => {
-  // Validate request
-  if (!req.body) {
-    res.status(400).send({
-      message: "El contenido no puede ser vacío"
-    });
-  }
+exports.borrarPID = (req, res, id) => {
 
- 
-  Guia.borrarPID(req.params.id, (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred"
-      });
-    else res.send(data);
+  Guia.borrarPID(id, (err, data) => {
+    if (err){
+      res.writeHead(400, {'Content-Type': 'application/json'})
+      res.end(JSON.stringify(err))
+     }else 
+        res.writeHead(200, {'Content-Type': 'application/json'})
+        res.end(JSON.stringify(data, null, '  '))
   });
 
 };

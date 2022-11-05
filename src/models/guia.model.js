@@ -21,13 +21,13 @@ Guia.crear = (newGuia, result) => {
 };
 //
 Guia.obtenerUID = (result) => {
-  sql.query("SELECT ID_Guia FROM guia ORDER BY ID_Guia DESC LIMIT 1;", (err, res) => {
+  sql.query("SELECT ID_Guia FROM guia ORDER BY ID_Guia DESC LIMIT 1; ", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
       return;
     }
-
+    
     console.log("Registros Obtenidos ", res);
     result(null, res);
   });

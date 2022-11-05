@@ -1,36 +1,61 @@
-const express = require('express');
-const app = express();
-const morgan = require('morgan');
+//@@ Modules
+const http = require('http');
+const url = require('url')
+//@@ Env Config
+const PORT = process.env.PORT || 3000;
+const {MIME_TYPES} = require ('./utils/utils')
 
-//Configuraciones
-app.set('port', process.env.PORT || 3000);
-app.set('json spaces', 2)
+//@@ Router and fileHandler
+const routes = require('./routes/routes'); const router = routes.router;
+const {prepareFile} = require('./utils/fileHandler')
+//-----------------//
 
-//Middleware
-app.use(morgan('dev'));
-app.use(express.urlencoded({extended:false}));
-app.use(express.json());
 
-	
-//Routes
-    //Visitante
-        require('./routes/visitante.routes')(app);
-    //... 
-        require('./routes/idioma.routes')(app);
-        require('./routes/sala.routes')(app);
-    //Guia
-        require('./routes/guia.routes')(app);
-        require('./routes/guia_idioma.routes')(app);
-    //Visita Guiada
-        require('./routes/visita_guiada.routes')(app);
-        require('./routes/visita_guiada_idioma.routes')(app);
-        require('./routes/visita_guiada_salas.routes')(app);
-        require('./routes/visita_guiada_visitante.routes')(app);
 
-app.use(express.static( __dirname + '/views'))
-//app.use(require('./routes/index'));
+const server = http.createServer(async (req, res) => {
 
-//Iniciando el servidor, escuchando...
-app.listen(app.get('port'),()=>{
-    console.log(`Server iniciado en el puerto ${app.get('port')}`);
-});
+    if(req.url.split('/')[1] === 'api'){
+        routes.routeSetter(req, res)
+        let URIDATA = {
+            parsedURL: url.parse(req.url, true),
+            path: '',
+            qs: '',
+            headers: req.headers,
+            method: req.method.toLowerCase()
+        }
+        URIDATA.path = URIDATA.parsedURL.pathname;
+        URIDATA.qs = URIDATA.parsedURL.query;
+        //URIDATA.path = URIDATA.path.replace(/^\/+|\/+$/g, "");
+        //console.log(URIDATA) 
+        
+        req.on("data", buffer => {
+            const strJSON = buffer.toString('utf-8')
+            req.body = strJSON
+            req.params = JSON.parse(JSON.stringify(URIDATA.parsedURL.query));
+        });
+        req.on("end", _ => {
+          const route =
+            typeof router.searchRoute(URIDATA.path, req.method) !== "undefined" 
+            ? router.searchRoute(URIDATA.path, req.method) 
+            : (req, res) => { console.warn('⚠ |ERROR 404 -' + req.url )};
+       
+      
+            route(req, res)
+        });
+                
+                
+        
+    }else{
+        
+        const file = await prepareFile(req.url);     
+        const statusCode = file.found ? 200 : 404;
+        const mimeType = MIME_TYPES[file.ext] || MIME_TYPES.default;
+        res.writeHead(statusCode, { 'Content-Type': mimeType });
+        file.stream.pipe(res); 
+    }
+    
+    console.log(`${req.method} ${req.url} `);
+  
+})
+
+server.listen(PORT, () => console.log(`**Servidor Iniciado || Puerto ${PORT}**`))

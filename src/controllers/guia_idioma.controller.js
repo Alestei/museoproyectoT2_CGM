@@ -1,155 +1,137 @@
 const GuiaIdioma = require("../models/guia_idioma.model.js");
 
-exports.crear = (req, res) => {
-  // Validate request
-  if (!req.body) {
-    res.status(400).send({
-      message: "El contenido no puede ser vacío"
+exports.crear = async (req, res) => {
+  try {
+    const body =  await req.body;  
+    console.log('GUIAIDIOMA' + '-> ' + JSON.parse(body))
+    const {ID_guia, ID_idioma} = JSON.parse(body); 
+    const guiaIdioma = new GuiaIdioma({
+      ID_guia,
+      ID_idioma
     });
-  }
+    
+    GuiaIdioma.crear(guiaIdioma, (err, data) => {
+      if (err){
+        res.writeHead(400, {'Content-Type': 'application/json'})
+        res.end(JSON.stringify(err))
+       }else 
+          res.writeHead(200, {'Content-Type': 'application/json'})
+          res.end(JSON.stringify(data, null, '  '))
+    });
 
-  // Crear 
-  const guiaIdioma = new GuiaIdioma({
-    ID_guia : req.body.ID_guia,
-    ID_idioma : req.body.ID_idioma,
-  });
+} catch (error) {
+    console.log(error)
+}
 
- 
-GuiaIdioma.crear(guiaIdioma, (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Error al crear registro."
-      });
-    else res.send(data);
-  });
 
 };
 
 exports.consultarTodos = (req,res) => {
     GuiaIdioma.consultarTodos( (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Error en la consulta."
-      });
-      else res.send(data);
+      if (err){
+        res.writeHead(400, {'Content-Type': 'application/json'})
+        res.end(JSON.stringify(err))
+       }else 
+          res.writeHead(200, {'Content-Type': 'application/json'})
+          res.end(JSON.stringify(data, null, '  '))
     });
 };
 
-exports.consultarPID = (req,res) => {
-    GuiaIdioma.consultarPID(req.params.id, (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Error en la consulta."
-      });
-      else res.send(data);
+exports.consultarPID = (req,res, id) => {
+    GuiaIdioma.consultarPID(id, (err, data) => {
+      if (err){
+        res.writeHead(400, {'Content-Type': 'application/json'})
+        res.end(JSON.stringify(err))
+       }else 
+          res.writeHead(200, {'Content-Type': 'application/json'})
+          res.end(JSON.stringify(data, null, '  '))
     });
 };
 
-exports.consultarIPID = (req,res) => {
-  GuiaIdioma.consultarIPID(req.params.id, (err, data) => {
-  if (err)
-    res.status(500).send({
-      message:
-        err.message || "Error en la consulta."
-    });
-    else res.send(data);
+exports.consultarIPID = (req,res, id) => {
+  GuiaIdioma.consultarIPID(id, (err, data) => {
+    if (err){
+      res.writeHead(400, {'Content-Type': 'application/json'})
+      res.end(JSON.stringify(err))
+     }else 
+        res.writeHead(200, {'Content-Type': 'application/json'})
+        res.end(JSON.stringify(data, null, '  '))
   });
 };
 
-exports.actualizarPID = (req, res) => {
-  // Validate request
-  if (!req.body) {
-    res.status(400).send({
-      message: "El contenido no puede ser vacío"
+exports.actualizarPID = async (req, res, id) => {
+  try {
+    const body =  await req.body;  
+    const {ID_guia, ID_idioma} = JSON.parse(body); 
+
+    const guiaIdioma = new GuiaIdioma({
+      ID_guia,
+      ID_idioma
     });
-  }
+    
+  GuiaIdioma.actualizarPID(id, guiaIdioma, (err, data) => {
+      if (err){
+        res.writeHead(400, {'Content-Type': 'application/json'})
+        res.end(JSON.stringify(err))
+       }else 
+          res.writeHead(200, {'Content-Type': 'application/json'})
+          res.end(JSON.stringify(data, null, '  '))
+    });
 
-  // Nuevos datos 
-  const guiaIdioma = new GuiaIdioma({
-    ID_guia : req.body.ID_guia,
-    ID_idioma : req.body.ID_idioma,
+} catch (error) {
+    console.log(error)
+}
 
-  });
+};
 
+exports.actualizarPIDG = async (req, res, idi, idg) => {
+  try {
+    const body =  await req.body;  
+    const {ID_guia, ID_idioma} = JSON.parse(body); 
+
+    const guiaIdioma = new GuiaIdioma({
+      ID_guia,
+      ID_idioma
+    });
+    
+    GuiaIdioma.actualizarPIDG(idi, idg, guiaIdioma, (err, data) => {
+      if (err){
+        res.writeHead(400, {'Content-Type': 'application/json'})
+        res.end(JSON.stringify(err))
+       }else 
+          res.writeHead(200, {'Content-Type': 'application/json'})
+          res.end(JSON.stringify(data, null, '  '))
+    });
+
+} catch (error) {
+    console.log(error)
+}
+
+};
+
+
+exports.borrarPID = (req, res, id) => {
  
-  GuiaIdioma.actualizarPID(req.params.id, guiaIdioma, (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Error en la actualización del registro con ID " + req.params.id
-      });
-    else res.send(data);
+  GuiaIdioma.borrarPID(id, (err, data) => {
+    if (err){
+      res.writeHead(400, {'Content-Type': 'application/json'})
+      res.end(JSON.stringify(err))
+     }else 
+        res.writeHead(200, {'Content-Type': 'application/json'})
+        res.end(JSON.stringify(data, null, '  '))
   });
 
 };
 
-exports.actualizarPIDG = (req, res) => {
-  // Validate request
-  if (!req.body) {
-    res.status(400).send({
-      message: "El contenido no puede ser vacío"
-    });
-  }
+exports.borrarPIDI = (req, res, idi, idg) => {
 
-  // Nuevos datos 
-  const guiaIdioma = new GuiaIdioma({
-    ID_guia : req.body.ID_guia,
-    ID_idioma : req.body.ID_idioma,
-
-  });
-
- 
-  GuiaIdioma.actualizarPIDG(req.params.idi, req.params.idg, guiaIdioma, (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Error en la actualización del registro con ID " + req.params.id
-      });
-    else res.send(data);
-  });
-
-};
-
-
-exports.borrarPID = (req, res) => {
-  // Validate request
-  if (!req.body) {
-    res.status(400).send({
-      message: "El contenido no puede ser vacío"
-    });
-  }
-
- 
-  GuiaIdioma.borrarPID(req.params.id, (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred"
-      });
-    else res.send(data);
-  });
-
-};
-
-exports.borrarPIDI = (req, res) => {
-  // Validate request
-  if (!req.body) {
-    res.status(400).send({
-      message: "El contenido no puede ser vacío"
-    });
-  }
-
- 
-  GuiaIdioma.borrarPIDI(req.params.idi, req.params.idg, (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred"
-      });
-    else res.send(data);
+  GuiaIdioma.borrarPIDI(idi, idg, (err, data) => {
+    if (err){
+      res.writeHead(400, {'Content-Type': 'application/json'})
+      res.end(JSON.stringify(err))
+     }else 
+        res.writeHead(200, {'Content-Type': 'application/json'})
+        res.end(JSON.stringify(data, null, '  '))
   });
 
 };

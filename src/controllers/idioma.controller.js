@@ -1,5 +1,6 @@
 const idioma = require("../models/idioma.model.js");
 
+
 exports.consultarTodos = (req,res) => {
     idioma.consultarTodos( (err, data) => {
     if (err)
@@ -7,17 +8,24 @@ exports.consultarTodos = (req,res) => {
         message:
           err.message || "Error en la consulta."
       });
-      else res.send(data);
+      else 
+        res.writeHead(200, {'Content-Type': 'application/json'})
+        res.end(JSON.stringify(data, null, '  '))
+
     });
 };
 
-exports.consultarPID = (req,res) => {
-  idioma.consultarPID(req.params.id, (err, data) => {
+exports.consultarPID = (req,res, id) => {
+  idioma.consultarPID(id, (err, data) => {
   if (err)
     res.status(500).send({
       message:
         err.message || "Error en la consulta."
     });
-    else res.send(data);
+    else
+      res.writeHead(200, {'Content-Type': 'application/json'})
+      res.end(JSON.stringify(data, null, '  '))
   });
 };
+
+

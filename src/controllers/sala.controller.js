@@ -1,105 +1,98 @@
 const Sala = require("../models/sala.model.js");
+const {getPostData} = require('../utils/utils')
 
-exports.crear = (req, res) => {
-  // Validate request
-  if (!req.body) {
-    res.status(400).send({
-      message: "El contenido no puede ser vacío"
+exports.crear = async (req, res) => {
+  try {
+    const body =  await req.body;  
+    const {nombre_sala} = JSON.parse(body); 
+    const sala = new Sala({
+      nombre_sala
     });
-  }
+    
+    Sala.crear(sala, (err, data) => {
+      if (err){
+        res.writeHead(400, {'Content-Type': 'application/json'})
+        res.end(JSON.stringify(err))
+       }else 
+          res.writeHead(200, {'Content-Type': 'application/json'})
+           res.end(JSON.stringify(data, null, '  '))
+    });
 
-  // Crear 
-  const sala = new Sala({
-    nombre_sala : req.body.nombre_sala,
-  });
+} catch (error) {
+    console.log(error)
+}
 
- 
-  Sala.crear(sala, (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Error al crear registro."
-      });
-    else res.send(data);
-  });
 
 };
 
 exports.consultarTodos = (req,res) => {
   Sala.consultarTodos( (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Error en la consulta."
-      });
-      else res.send(data);
-    });
+    if (err){
+      res.writeHead(400, {'Content-Type': 'application/json'})
+      res.end(JSON.stringify(err))
+     }else 
+        res.writeHead(200, {'Content-Type': 'application/json'})
+         res.end(JSON.stringify(data, null, '  '))
+  });
 };
 
 exports.obtenerUID = (req,res) => {
   Sala.obtenerUID((err, data) => {
-  if (err)
-    res.status(500).send({
-      message:
-        err.message || "Error en la consulta."
-    });
-    else res.send(data);
+    if (err){
+      res.writeHead(400, {'Content-Type': 'application/json'})
+      res.end(JSON.stringify(err))
+     }else 
+        res.writeHead(200, {'Content-Type': 'application/json'})
+         res.end(JSON.stringify(data, null, '  '))
   });
 };
 
-exports.consultarPID = (req,res) => {
-  Sala.consultarPID(req.params.id, (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Error en la consulta."
-      });
-      else res.send(data);
-    });
+exports.consultarPID = (req,res, id) => {
+  Sala.consultarPID(id, (err, data) => {
+    if (err){
+      res.writeHead(400, {'Content-Type': 'application/json'})
+      res.end(JSON.stringify(err))
+     }else 
+        res.writeHead(200, {'Content-Type': 'application/json'})
+         res.end(JSON.stringify(data, null, '  '))
+  });
 };
 
 
-exports.actualizarPID = (req, res) => {
-  // Validate request
-  if (!req.body) {
-    res.status(400).send({
-      message: "El contenido no puede ser vacío"
+exports.actualizarPID = async (req, res, id) => {
+  try {
+    const body =  await req.body;  
+    const {nombre_sala} = JSON.parse(body); 
+    const sala = new Sala({
+      nombre_sala
     });
-  }
+    
+    Sala.actualizarPID(id, sala, (err, data) => {
+      if (err){
+        res.writeHead(400, {'Content-Type': 'application/json'})
+        res.end(JSON.stringify(err))
+       }else 
+          res.writeHead(200, {'Content-Type': 'application/json'})
+           res.end(JSON.stringify(data, null, '  '))
+    });
 
-  // Nuevos datos 
-  const sala = new Sala({
-    nombre_sala : req.body.nombre_sala
-  });
+} catch (error) {
+    console.log(error)
+}
 
- 
-  Sala.actualizarPID(req.params.id, sala, (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Error en la actualización del registro con ID " + req.params.id
-      });
-    else res.send(data);
-  });
 
 };
 
-exports.borrarPID = (req, res) => {
-  // Validate request
-  if (!req.body) {
-    res.status(400).send({
-      message: "El contenido no puede ser vacío"
-    });
-  }
+exports.borrarPID = (req, res, id) => {
 
- 
-  Sala.borrarPID(req.params.id, (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred"
-      });
-    else res.send(data);
+
+  Sala.borrarPID(id, (err, data) => {
+    if (err){
+      res.writeHead(400, {'Content-Type': 'application/json'})
+      res.end(JSON.stringify(err))
+     }else 
+        res.writeHead(200, {'Content-Type': 'application/json'})
+         res.end(JSON.stringify(data, null, '  '))
   });
 
 };

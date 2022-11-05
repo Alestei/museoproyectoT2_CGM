@@ -1,109 +1,101 @@
 const Visita_Guiada = require("../models/visita_guiada.model.js");
 
-exports.crear = (req, res) => {
-  // Validate request
-  if (!req.body) {
-    res.status(400).send({
-      message: "El contenido no puede ser vacío"
+exports.crear = async (req, res) => {
+  try {
+    const body =  await req.body;  
+    const {nombreVisita, FHora, ID_guia} = JSON.parse(body); 
+    const visita_guiada = new Visita_Guiada({
+      nombreVisita,
+      FHora,
+      ID_guia,
     });
-  }
-
-  // Crear 
-  const visita_guiada = new Visita_Guiada({
-    nombreVisita: req.body.nombreVisita,
-    FHora : req.body.FHora,
-    ID_guia : req.body.ID_guia
-  });
-
+    
  
-  Visita_Guiada.crear(visita_guiada, (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Error al crear registro."
-      });
-    else res.send(data);
-  });
+    Visita_Guiada.crear(visita_guiada, (err, data) => {
+      if (err){
+        res.writeHead(400, {'Content-Type': 'application/json'})
+        res.end(JSON.stringify(err))
+       }else 
+          res.writeHead(200, {'Content-Type': 'application/json'})
+           res.end(JSON.stringify(data, null, '  '))
+    });
+  
+
+} catch (error) {
+    console.log(error)
+}
 
 };
 
 exports.consultarTodos = (req,res) => {
   Visita_Guiada.consultarTodos( (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Error en la consulta."
-      });
-      else res.send(data);
-    });
+    if (err){
+      res.writeHead(400, {'Content-Type': 'application/json'})
+      res.end(JSON.stringify(err))
+     }else 
+        res.writeHead(200, {'Content-Type': 'application/json'})
+         res.end(JSON.stringify(data, null, '  '))
+  });
 };
 
-exports.consultarPID = (req,res) => {
-  Visita_Guiada.consultarPID(req.params.id, (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Error en la consulta."
-      });
-      else res.send(data);
-    });
+exports.consultarPID = (req,res, id) => {
+  Visita_Guiada.consultarPID(id, (err, data) => {
+    if (err){
+      res.writeHead(400, {'Content-Type': 'application/json'})
+      res.end(JSON.stringify(err))
+     }else 
+        res.writeHead(200, {'Content-Type': 'application/json'})
+         res.end(JSON.stringify(data, null, '  '))
+  });
 };
 
 exports.obtenerUID = (req,res) => {
   Visita_Guiada.obtenerUID((err, data) => {
-  if (err)
-    res.status(500).send({
-      message:
-        err.message || "Error en la consulta."
-    });
-    else res.send(data);
+    if (err){
+      res.writeHead(400, {'Content-Type': 'application/json'})
+      res.end(JSON.stringify(err))
+     }else 
+        res.writeHead(200, {'Content-Type': 'application/json'})
+         res.end(JSON.stringify(data, null, '  '))
   });
 };
 
-exports.actualizarPID = (req, res) => {
-  // Validate request
-  if (!req.body) {
-    res.status(400).send({
-      message: "El contenido no puede ser vacío"
+exports.actualizarPID = async (req, res, id) => {
+  try {
+    const body =  await req.body;  
+    const {nombreVisita, FHora, ID_guia} = JSON.parse(body); 
+    const visita_guiada = new Visita_Guiada({
+      nombreVisita,
+      FHora,
+      ID_guia,
     });
-  }
-
-  // Nuevos datos 
-  const visita_guiada = new Visita_Guiada({
-    nombreVisita: req.body.nombreVisita,
-    FHora : req.body.FHora,
-    ID_guia : req.body.ID_guia
-  });
-
-
+    
  
-  Visita_Guiada.actualizarPID(req.params.id, visita_guiada, (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Error en la actualización del registro con ID " + req.params.id
-      });
-    else res.send(data);
-  });
+    Visita_Guiada.actualizarPID(id, visita_guiada, (err, data) => {
+      if (err){
+        res.writeHead(400, {'Content-Type': 'application/json'})
+        res.end(JSON.stringify(err))
+       }else 
+          res.writeHead(200, {'Content-Type': 'application/json'})
+           res.end(JSON.stringify(data, null, '  '))
+    });
+  
+
+} catch (error) {
+    console.log(error)
+}
 
 };
 
 exports.borrarPID = (req, res) => {
-  // Validate request
-  if (!req.body) {
-    res.status(400).send({
-      message: "El contenido no puede ser vacío"
-    });
-  }
 
- 
   Visita_Guiada.borrarPID(req.params.id, (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred"
-      });
-    else res.send(data);
+    if (err){
+      res.writeHead(400, {'Content-Type': 'application/json'})
+      res.end(JSON.stringify(err))
+     }else 
+        res.writeHead(200, {'Content-Type': 'application/json'})
+         res.end(JSON.stringify(data, null, '  '))
   });
 
 };
