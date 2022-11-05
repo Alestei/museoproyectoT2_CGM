@@ -17,6 +17,7 @@ class admin_salas_L {
                               <th>Numero de Sala</th>
                               <th>Nombre de Sala</th>
                               <th>Operaciones</th>
+                              <th>Oper. Obras</th>
                           </tr>
                       </thead>
                       <tbody id="datos">
@@ -165,11 +166,12 @@ class admin_salas_L {
                    <tr>
                    <td>${data[x].ID_sala}</td>
                    <td id="sala_${data[x].ID_sala}">${data[x].nombre_sala}</td>
-       
                    <td>
                        <img del-id="${data[x].ID_sala}" id="${data[x].ID_sala}" src="../style/img/acc-minus.png" style="width:30px; height:30px">
                        <a md-id="${data[x].ID_sala}" id="${data[x].ID_sala} "><img  src="../style/img/pencil.png" style="width:30px; height:30px"></a>
-                       <img l-id="ob_${data[x].ID_sala}" id="ob_${data[x].ID_sala}"  src="../style/img/image-plus.png" style="width:30px; height:30px">
+                   </td>
+                   <td>
+                   <img l-id="ob_${data[x].ID_sala}" id="ob_${data[x].ID_sala}"  src="../style/img/image-plus.png" style="width:30px; height:30px">
                    </td>
                </tr>
                   `

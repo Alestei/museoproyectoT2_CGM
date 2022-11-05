@@ -165,7 +165,7 @@ export async function PContent_servi_guias_func(){
                             <td id="sala${x}">
                                 <td>
                                     <img title="Enlistarse"   md-id="${vg[x].ID_VG}" id="${vg[x].ID_VG}" src="../style/img/acc-plus.png" style="width:30px; height:30px">
-                                    <img title="Listar Obras" l-id="ob_${vg[x].ID_VG}" id="ob_${vg[x].ID_VG}" src="../style/img/list.png" style="width:30px; height:30px">
+                                    <img title="Listar Obras" l-id="ob_${vg[x].ID_VG}" id="ob_${vg[x].ID_VG}" src="../style/img/image-list.png" style="width:30px; height:30px">
                                 </td>
                         `;
                 
