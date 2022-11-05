@@ -20,9 +20,9 @@ export const PContent_header = `
              <label>Información</label>
                 
                   <ul class="dropdown">    
-                    <li><a class="Info" id="info_access" >Accesibilidad</a></li>
-                    <li><a class="Info" id="info_obras" >Obras</a></li>
-                    <li><a class="Info" id="info_guias" >Mapa</a></li>
+                    <a class="Info" id="info_access" ><li>Accesibilidad</li></a>
+                    <a class="Info" id="info_obras" ><li>Obras</li></a>
+                    <a class="Info" id="info_guias" ><li>Mapa</li></a>
                   </ul>
           </li>
 
@@ -31,7 +31,7 @@ export const PContent_header = `
              <label>Servicios</label>
          
                 <ul class="dropdown">
-                  <li><a class="Service" id="servi_guias" >Visitas Guiadas</a></li>
+                  <a class="Service" id="servi_guias" ><li>Visitas Guiadas</li></a>
                 </ul>
          </li>
 
@@ -39,10 +39,10 @@ export const PContent_header = `
               <label id="adminlabel">Administración</label>
 
                 <ul id="admindrop" class="dropdown" >    
-                <li><a class="Admin" id="admin_guias">Administrar Guias</a></li>
-                <li><a class="Admin" id="admin_vg" >Administrar Visitas</a></li>
-                <li><a class="Admin" id="admin_visitante" >Administrar Visitante</a></li>
-                <li><a class="Admin" id="admin_salas" >Administrar Salas</a></li>
+                <a class="Admin" id="admin_guias"><li>Administrar Guias</li></a>
+                <a class="Admin" id="admin_vg" ><li>Administrar Visitas</li></a>
+                <a class="Admin" id="admin_visitante" ><li>Administrar Visitante</li></a>
+                <a class="Admin" id="admin_salas" ><li>Administrar Salas</li></a>
                 </ul>
           </li>
       </div>

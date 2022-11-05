@@ -8,6 +8,10 @@ const visita_guiada_idioma = require("../controllers/visita_guiada_idioma.contro
 const visita_guiada_salas = require("../controllers/visita_guiada_salas.controller.js");
 const visita_guiada_visitante = require("../controllers/visita_guiada_visitante.controller.js");
 const visitante = require("../controllers/visitante.controller.js");
+const autores_obra = require("../controllers/autores_obra.controller.js")
+const obra_autor = require("../controllers/obra_autor.controller.js")
+const obra = require("../controllers/obra.controller.js")
+const sala_obra = require("../controllers/sala_obra.controller.js")
 
 function Router (){
     const Routes = {
@@ -128,6 +132,38 @@ const routeSetter =   (req, res) => {
     router.get(`/api/guia/${req.url.split('/')[3]}`, (req,res) =>  {const ID = req.url.split('/')[3]; guia.consultarPID(req,res,ID)});
     router.put(`/api/guia/${req.url.split('/')[3]}`, (req,res) =>  {const ID = req.url.split('/')[3]; guia.actualizarPID(req,res,ID)});
     router.delete(`/api/guia/${req.url.split('/')[3]}`, (req,res) =>  {const ID = req.url.split('/')[3]; guia.borrarPID(req,res,ID)});
+
+    //AUTORES_OBRA
+    router.post("/api/autores_obra", (req,res) =>  {autores_obra.crear(req,res)});
+    router.get("/api/autores_obra", (req,res) => { autores_obra.consultarTodos(req,res)});
+    router.get("/api/autores_obra/uid/", (req,res) =>  {autores_obra.obtenerUID(req,res)});
+    router.get(`/api/autores_obra/${req.url.split('/')[3]}`, (req,res) =>  {const ID = req.url.split('/')[3]; autores_obra.consultarPID(req,res,ID)});
+    router.put(`/api/autores_obra/${req.url.split('/')[3]}`, (req,res) =>  {const ID = req.url.split('/')[3]; autores_obra.actualizarPID(req,res,ID)});
+    router.delete(`/api/autores_obra/${req.url.split('/')[3]}`, (req,res) =>  {const ID = req.url.split('/')[3]; autores_obra.borrarPID(req,res,ID)});
+
+    //OBRA_AUTOR
+    router.post("/api/obra_autor", (req,res) =>  {obra_autor.crear(req,res)});
+    router.get("/api/obra_autor", (req,res) => { obra_autor.consultarTodos(req,res)});
+    router.get("/api/obra_autor/uid/", (req,res) =>  {obra_autor.obtenerUID(req,res)});
+    router.get(`/api/obra_autor/${req.url.split('/')[3]}`, (req,res) =>  {const ID = req.url.split('/')[3]; obra_autor.consultarPID(req,res,ID)});
+    router.put(`/api/obra_autor/${req.url.split('/')[3]}`, (req,res) =>  {const ID = req.url.split('/')[3]; obra_autor.actualizarPID(req,res,ID)});
+    router.delete(`/api/obra_autor/${req.url.split('/')[3]}`, (req,res) =>  {const ID = req.url.split('/')[3]; obra_autor.borrarPID(req,res,ID)});
+
+    //OBRA
+    router.post("/api/obra", (req,res) =>  {obra.crear(req,res)});
+    router.get("/api/obra", (req,res) => { obra.consultarTodos(req,res)});
+    router.get("/api/obra/uid/", (req,res) =>  {obra.obtenerUID(req,res)});
+    router.get(`/api/obra/${req.url.split('/')[3]}`, (req,res) =>  {const ID = req.url.split('/')[3]; obra.consultarPID(req,res,ID)});
+    router.put(`/api/obra/${req.url.split('/')[3]}`, (req,res) =>  {const ID = req.url.split('/')[3]; obra.actualizarPID(req,res,ID)});
+    router.delete(`/api/obra/${req.url.split('/')[3]}`, (req,res) =>  {const ID = req.url.split('/')[3]; obra.borrarPID(req,res,ID)});
+
+    //SALA_OBRA
+    router.post("/api/sala_obra", (req,res) =>  {sala_obra.crear(req,res)});
+    router.get("/api/sala_obra", (req,res) => { sala_obra.consultarTodos(req,res)});
+    router.get("/api/sala_obra/uid/", (req,res) =>  {obrsala_obraa.obtenerUID(req,res)});
+    router.get(`/api/sala_obra/${req.url.split('/')[3]}`, (req,res) =>  {const ID = req.url.split('/')[3]; sala_obra.consultarPID(req,res,ID)});
+    router.put(`/api/sala_obra/${req.url.split('/')[3]}`, (req,res) =>  {const ID = req.url.split('/')[3]; sala_obra.actualizarPID(req,res,ID)});
+    router.delete(`/api/sala_obra/${req.url.split('/')[3]}`, (req,res) =>  {const ID = req.url.split('/')[3]; sala_obra.borrarPID(req,res,ID)});
 }
 
 

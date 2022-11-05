@@ -5,7 +5,7 @@ export const callAccessibility = () => {
     const header = document.getElementById('header')
      header.innerHTML += 
         `
-            <div id="accTools" class="MAccess" style="width:fit-content; position:fixed;">
+            <div id="accTools" class="MAccess" style="width:fit-content; position:fixed; draggable:true" >
             <a ><img src="../style/img/wheelchair.png" draggable="false"></a>
             </div>
         `;

@@ -44,11 +44,11 @@ export function DOMObserver(){
         mutationList.forEach((mutation) => {
            // console.log(mutation.type);
         if (mutation.addedNodes.length) {
-           // console.log('<DOM Change> - <add>',  mutation.addedNodes[0].parentElement.dataset);
+            console.log('<DOM Change> - <add>',  mutation.addedNodes[0].parentElement.dataset);
             main(mutation.addedNodes[0].parentElement.dataset.id)
         }
         if (mutation.removedNodes.length) {
-           //console.log('<DOM Change> - <change>', mutation.removedNodes);
+            console.log('<DOM Change> - <change>', mutation.removedNodes);
 
         }
       

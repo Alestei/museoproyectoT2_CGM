@@ -67,7 +67,7 @@ class admin_vis_guiada_l {
 
                     <p>&nbsp</p><hr><br>
                         <input type="submit" class="MButton">
-                        <a class="MButton" >Volver</a>
+                        <a class="MButton"  href="./">Volver</a>
                     <p>&nbsp</p>
             
                 
@@ -195,7 +195,7 @@ class admin_vis_guiada_l {
                         <td id="sala${x}">
                             <td>
                                 <img del-id="${vg[x].ID_VG}" id="${vg[x].ID_VG}" src="../style/img/acc-minus.png" style="width:30px; height:30px">
-                                <a md-id="${vg[x].ID_VG}" id="${vg[x].ID_VG}" ><img  src="../style/img/pencil.png" style="width:30px; height:30px"></a>
+                                <!--<a md-id="${vg[x].ID_VG}" id="${vg[x].ID_VG}" ><img  src="../style/img/pencil.png" style="width:30px; height:30px"></a>-->
                             </td>
                     `;
             
@@ -242,7 +242,7 @@ class admin_vis_guiada_l {
   
   }
   
-    
+//Falta terminar
 export async function PContent_admin_vg_modify(QueryID){
     try {
         let newContent = {
@@ -271,7 +271,7 @@ export async function PContent_admin_vg_modify(QueryID){
 
                     return getApiInfo('/api/idioma/' + responseVGI[0].ID_idioma).then(responseIdioma =>{
                        newContent.idiomas +=  `<b> -  ${responseIdioma[0].idioma} </b>`
-                        //quedaste aqui....
+                        
                     }).then(r2 => {
                         return getApiInfo('/api/visita_guiada_salas/' + QueryID).then(responseVG => {
         
