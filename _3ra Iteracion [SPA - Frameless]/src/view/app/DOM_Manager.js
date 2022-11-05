@@ -1,4 +1,4 @@
-import { main } from "./index.js";
+import { main } from "./page.js";
 
 export function AppStatic(DOMH,DOMF) {
     return new Promise((resolve, reject) => {

@@ -87,12 +87,12 @@ exports.borrarPID = (req, res, id) => {
 
 
   Sala.borrarPID(id, (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred"
-      });
-    else res.send(data);
+    if (err){
+      res.writeHead(400, {'Content-Type': 'application/json'})
+      res.end(JSON.stringify(err))
+     }else 
+        res.writeHead(200, {'Content-Type': 'application/json'})
+         res.end(JSON.stringify(data, null, '  '))
   });
 
 };

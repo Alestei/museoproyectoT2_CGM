@@ -63,7 +63,7 @@ const routeSetter =   (req, res) => {
     //VISITANTE
     router.post('/api/visitante', (req,res) =>      {visitante.crear(req,res)})
     router.get('/api/visitante', (req,res) =>       {visitante.consultarTodos(req,res)})
-    router.get('/api/visitante/uid',  (req,res) =>  {visitante.obtenerUID(req,res)})
+    router.get('/api/visitante/uid/',  (req,res) =>  {visitante.obtenerUID(req,res)})
     router.get(`/api/visitante/${req.url.split('/')[3]}`, (req,res) =>     {const ID =req.url.split('/')[3]; visitante.consultarPID(req,res, ID)});
     router.put(`/api/visitante/${req.url.split('/')[3]}`, (req,res) =>     {const ID =req.url.split('/')[3]; visitante.actualizarPID(req, res, ID)});
     router.delete(`/api/visitante/${req.url.split('/')[3]}`, (req,res) =>  {const ID =req.url.split('/')[3]; visitante.borrarPID(req, res, ID)});
@@ -71,7 +71,7 @@ const routeSetter =   (req, res) => {
     //VISITA GUIADA
     router.post("/api/visita_guiada", (req, res) =>    { visita_guiada.crear(req, res)});
     router.get("/api/visita_guiada",  (req, res) =>    { visita_guiada.consultarTodos(req, res)});
-    router.get("/api/visita_guiada/uid", (req, res) => { visita_guiada.obtenerUID(req,res)});
+    router.get("/api/visita_guiada/uid/", (req, res) => { visita_guiada.obtenerUID(req,res)});
     router.get(`/api/visita_guiada/${req.url.split('/')[3]}`, (req, res) =>    {const ID =req.url.split('/')[3]; visita_guiada.consultarPID(req, res, ID)});
     router.put(`/api/visita_guiada/${req.url.split('/')[3]}`, (req, res) =>    {const ID =req.url.split('/')[3]; visita_guiada.actualizarPID(req, res, ID)});
     router.delete(`/api/visita_guiada/${req.url.split('/')[3]}`, (req, res) => {const ID =req.url.split('/')[3]; visita_guiada.borrarPID(req, res, ID)});
@@ -87,7 +87,7 @@ const routeSetter =   (req, res) => {
     //VISITA GUIADA SALAS
     router.post("/api/visita_guiada_salas", (req, res) =>    { visita_guiada_salas.crear(req, res)});
     router.get("/api/visita_guiada_salas",  (req, res) =>    { visita_guiada_salas.consultarTodos(req, res)});
-    router.get("/api/visita_guiada_salas/uid", (req, res) => { visita_guiada_salas.obtenerUID(req,res)});
+//  router.get("/api/visita_guiada_salas/uid/", (req, res) => { visita_guiada_salas.obtenerUID(req,res)});
     router.get(`/api/visita_guiada_salas/${req.url.split('/')[3]}`, (req, res) =>    {const ID =req.url.split('/')[3]; visita_guiada_salas.consultarPID(req, res, ID)});
     router.put(`/api/visita_guiada_salas/${req.url.split('/')[3]}`, (req, res) =>    {const ID =req.url.split('/')[3]; visita_guiada_salas.actualizarPID(req, res, ID)});
     router.delete(`/api/visita_guiada_salas/${req.url.split('/')[3]}`, (req, res) => {const ID =req.url.split('/')[3]; visita_guiada_salas.borrarPID(req, res, ID)});
@@ -124,7 +124,7 @@ const routeSetter =   (req, res) => {
     //GUIA
     router.post("/api/guia", (req,res) =>  {guia.crear(req,res)});
     router.get("/api/guia", (req,res) => { guia.consultarTodos(req,res)});
-    router.get("/api/guia/uid", (req,res) =>  {guia.obtenerUID(req,res)});
+    router.get("/api/guia/uid/", (req,res) =>  {guia.obtenerUID(req,res)});
     router.get(`/api/guia/${req.url.split('/')[3]}`, (req,res) =>  {const ID = req.url.split('/')[3]; guia.consultarPID(req,res,ID)});
     router.put(`/api/guia/${req.url.split('/')[3]}`, (req,res) =>  {const ID = req.url.split('/')[3]; guia.actualizarPID(req,res,ID)});
     router.delete(`/api/guia/${req.url.split('/')[3]}`, (req,res) =>  {const ID = req.url.split('/')[3]; guia.borrarPID(req,res,ID)});

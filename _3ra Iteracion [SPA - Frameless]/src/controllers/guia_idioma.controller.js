@@ -3,6 +3,7 @@ const GuiaIdioma = require("../models/guia_idioma.model.js");
 exports.crear = async (req, res) => {
   try {
     const body =  await req.body;  
+    console.log('GUIAIDIOMA' + '-> ' + JSON.parse(body))
     const {ID_guia, ID_idioma} = JSON.parse(body); 
     const guiaIdioma = new GuiaIdioma({
       ID_guia,
