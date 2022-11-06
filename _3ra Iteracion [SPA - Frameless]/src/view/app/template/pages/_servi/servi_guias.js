@@ -148,10 +148,9 @@ export async function PContent_servi_guias_func(){
             return salVec;
           }    
           
-        return getApiInfo('/api/visita_guiada').then(vg => {
-            
+        return getApiInfo('/api/visita_guiada').then( vg => {
                 for(let x in vg){ 
-                    getGuia(vg[x].ID_guia).then(response => {
+                    getGuia(vg[x].ID_guia).then( response => {
                         let fecha = Date.parse(vg[x].FHora)
                         fecha = new Date(fecha).toUTCString()
                         newContent +=  `
@@ -163,7 +162,7 @@ export async function PContent_servi_guias_func(){
                             <td id="sala${x}">
                                 <td>
                                     <img title="Enlistarse"   md-id="${vg[x].ID_VG}" id="${vg[x].ID_VG}" src="../style/img/acc-plus.png" style="width:30px; height:30px">
-                                    <img title="Listar Obras" l-id="ob_${vg[x].ID_VG}" id="ob_${vg[x].ID_VG}" src="../style/img/image-list.png" style="width:30px; height:30px">
+                                    <img id="VerObras">
                                 </td>
                         `;
                 
@@ -190,7 +189,8 @@ export async function PContent_servi_guias_func(){
                     for(let x in vgs){ 
                                             
                         data2 = await getSala(vgs[x].ID_sala)
-
+                
+                        newContent = newContent.replace(`<img id="VerObras">`, `<img title="Listar Obras" l-id="ob_${vgs[x].ID_sala}" id="ob_${vgs[x].ID_sala}" src="../style/img/image-list.png" style="width:30px; height:30px">`)
                         newContent = newContent.replace(`<td id="sala${x}">`, `<td id="sala${x}">${data2[0]}</td>`)
                         newContent = newContent.replace(`undefined`, ``)
                       
