@@ -20,6 +20,7 @@ mysqlConnection.connect(function (err){
     }else{
         console.log(">>> Base de Datos Conectada.")
         console.log(">>> Te has conectado al servidor '" + dbConfig.HOST + "'")
+        
     }
 
 })

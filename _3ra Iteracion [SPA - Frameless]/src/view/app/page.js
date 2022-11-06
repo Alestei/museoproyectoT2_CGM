@@ -1,3 +1,4 @@
+
 import {App, AppStatic, DOMObserver} from './DOM_Manager.js'
 //
 //Templates
@@ -24,6 +25,7 @@ import {App, AppStatic, DOMObserver} from './DOM_Manager.js'
     import { PContent_admin_salas_func, PContent_admin_salas_load, PContent_admin_salas_load_send, PContent_admin_salas_modify, PContent_admin_salas_modify_send, salas_deleteEvent } from './template/pages/_admin/admin_salas.js';
 
 
+
 const D = document;
 
 D.addEventListener('DOMContentLoaded', (event) => {
@@ -31,7 +33,7 @@ D.addEventListener('DOMContentLoaded', (event) => {
         establishBG(); 
         let DOM = await App(await PContent_index(), 'index'); 
         let DOMHF = await AppStatic(PContent_header,PContent_footer).then(callAccessibility())
-        let DOMSC = ''
+
         //console.log(DOM)
 
         let navInfo = document.querySelectorAll('.Info');

@@ -13,7 +13,6 @@ export const callAccessibility = () => {
 const MAccess = document.querySelectorAll('.MAccess');
 MAccess.forEach( function(elem,i) {
     elem.addEventListener("click", function() {
-        if(ARO == 0){
             document.getElementById('accTools').innerHTML += `
                 <div id="accTO" style="display:grid; padding:5px; margin:5px;">
                     <button id="+"  class="MAccessButton">🔎+</button>
@@ -23,12 +22,9 @@ MAccess.forEach( function(elem,i) {
                        <button id="closeAC" class="MAccessButton">Ocultar Menú</button>
                 </div>
             `
-             ARO = 1;
+  
              internButtons()
-            }else{
-                document.getElementById('accTO').remove();
-                ARO = 0;
-        }
+             
     });
   });
 
@@ -43,10 +39,11 @@ function internButtons(){
     MAC_button.forEach( function(elem,i) {
         elem.addEventListener("click", function() {
     
-                if(elem.id == '+'){document.getElementById('body').style.fontSize = `${++fontSize}px`}
-                if(elem.id == '-'){document.getElementById('body').style.fontSize = `${--fontSize}px`}
+                if(elem.id == '+'){document.getElementById('body').style.fontSize = `${++fontSize}px`; document.getElementById('accTO').remove();}
+                if(elem.id == '-'){document.getElementById('body').style.fontSize = `${--fontSize}px`; document.getElementById('accTO').remove();}
 
                 if(elem.id == 'closeAC'){document.getElementById('accTools').style.display = 'none'}
+                
         });
       });
 }
