@@ -330,7 +330,7 @@ export async function PContent_admin_vg_load_send(){
     try {
         const goBack = document.getElementById('goBack')
         goBack.addEventListener("click", async function(){
-            return await App(await PContent_admin_vg_load(), 'admin_VG', 'Visita Guiada')
+            return await App(await PContent_admin_vg_func(), 'admin_VG', 'Visita Guiada')
         })
 
         let vis_guiada_data = {
