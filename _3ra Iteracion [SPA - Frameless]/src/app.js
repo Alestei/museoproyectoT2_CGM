@@ -6,11 +6,11 @@ const PORT = process.env.PORT || 3000;
 const {MIME_TYPES} = require ('./utils/utils')
 
 //@@ Router and fileHandler
-const routes = require('./routes/routes'); const router = routes.router;
+const routes = require('./routes/routes'); 
 const {prepareFile} = require('./utils/fileHandler')
 //-----------------//
 
-
+const router = routes.router;
 
 const server = http.createServer(async (req, res) => {
 

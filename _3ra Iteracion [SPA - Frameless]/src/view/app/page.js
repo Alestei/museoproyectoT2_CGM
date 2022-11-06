@@ -35,11 +35,29 @@ D.addEventListener('DOMContentLoaded', (event) => {
         let DOMHF = await AppStatic(PContent_header,PContent_footer).then(callAccessibility())
 
         //console.log(DOM)
+        let adminHeader = document.getElementById('adminlabel')
+        if(sessionStorage.length == 0){
+            sessionStorage.setItem("pass", "museoadmin2022"); 
+            sessionStorage.setItem('SESSION', 'false')
+        }
 
         let navInfo = document.querySelectorAll('.Info');
         let navService = document.querySelectorAll('.Service');
         let navAdmin = document.querySelectorAll('.Admin');
         let navHeader = document.querySelectorAll('.index');
+
+        adminHeader.addEventListener("click", async function(){
+            if(sessionStorage.getItem('SESSION') == 'false'){
+                const UP = prompt('Bienvenido Admin, ingrese su contraseña');
+                if(UP == sessionStorage.getItem('pass')){
+                    alert('Se ha registrado correctamente')
+                    sessionStorage.setItem('SESSION', 'true')
+                    document.getElementById('admindrop').style = ''
+                }
+            }else{
+                document.getElementById('admindrop').style = '';
+            }
+        })
 
         navHeader.forEach( async function (elem) {
             elem.addEventListener("click", async function (){

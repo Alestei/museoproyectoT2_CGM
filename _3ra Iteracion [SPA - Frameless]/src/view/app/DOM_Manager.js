@@ -4,8 +4,10 @@ export function AppStatic(DOMH,DOMF) {
     return new Promise((resolve, reject) => {
         try {
             if(DOMH, DOMF){
-            document.getElementById('header').innerHTML = DOMH;
-            document.getElementById('footer').innerHTML = DOMF;
+                const Header = document.getElementById('header')
+                const Footer = document.getElementById('footer')
+                Header.innerHTML = DOMH;
+                Footer.innerHTML = DOMF;
             resolve('H-F Loaded')
             }
 

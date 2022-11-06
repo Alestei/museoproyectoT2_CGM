@@ -7,7 +7,6 @@ export const PContent_header = `
       </center>
     </a>
  
-   
 </div>
 
 <nav id="headerNav" class="navbar">
@@ -38,7 +37,7 @@ export const PContent_header = `
           <li class="services">
               <label id="adminlabel">Administración</label>
 
-                <ul id="admindrop" class="dropdown" >    
+                <ul id="admindrop" class="dropdown" style="display:none">    
                 <a class="Admin" id="admin_guias"><li>Administrar Guias</li></a>
                 <a class="Admin" id="admin_vg" ><li>Administrar Visitas</li></a>
                 <a class="Admin" id="admin_visitante" ><li>Administrar Visitante</li></a>
