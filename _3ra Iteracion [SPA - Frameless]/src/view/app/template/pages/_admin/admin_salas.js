@@ -216,7 +216,10 @@ export async function PContent_admin_salas_modify_send(queryID){
                 nombre_sala : document.getElementById('nombre').value
             }
 
-            putApiInfo('/api/sala/' + queryID, data)
+            putApiInfo('/api/sala/' + queryID, data).then(result => {
+                if(result) alert('Datos Cargados')
+            
+            }).catch(alert('Ha ocurrido un error'));
       }
     } catch (error) {
         
@@ -261,7 +264,10 @@ export async function PContent_admin_salas_load_send(queryID){
                         return data_sala_obra
                     }).then(r3 => {
                        // console.log(data_sala_obra)
-                        postApiInfo('/api/sala_obra', data_sala_obra).then(alert('Datos Cargados'))
+                        postApiInfo('/api/sala_obra', data_sala_obra).then(
+                             alert('Datos Cargados')
+                        
+                        ).catch(alert('Ha ocurrido un error'));
                 })
              })
             }
@@ -270,7 +276,10 @@ export async function PContent_admin_salas_load_send(queryID){
                 const data = {
                     nombre_sala : document.getElementById('nombre').value
                 }
-                postApiInfo('/api/sala', data)
+                postApiInfo('/api/sala', data).then(
+                    alert('Datos Cargados')
+               
+               ).catch(alert('Ha ocurrido un error'));
             }
         }
     } catch (error) {
@@ -283,7 +292,7 @@ export async function salas_deleteEvent(event){
     
     let choice =  confirm('¿Estás seguro que quieres eliminar ' + document.getElementById('sala_' + event.id).innerText + '?') 
      if(choice == true){
-         deleteApiInfo('/api/sala/' + event.id); window.location.reload();
+         deleteApiInfo('/api/sala/' + event.id); 
      }
      
 }

@@ -47,7 +47,7 @@
             <div id="squareform" style="color: rgb(0, 0, 0); background-color:rgba(255, 255, 255, 0.603) ;margin: auto; width: 30%; border-radius: 10px; padding: 10px;">
                 
                 <center>
-                    <a href="../index.html"><img src="../style/img/logo.png" width="100px" height="100px"></a><h2>Cargar Visitante</h2><p>&nbsp</p><hr><br>
+                   <h2>Cargar Visitante</h2><p>&nbsp</p><hr><br>
                 <center>
               
                     <p><label for="Nombre">Nombre</label></p>
@@ -84,7 +84,6 @@
             <div id="squareform" style="color: rgb(0, 0, 0); background-color:rgba(255, 255, 255, 0.603) ;margin: auto; width: 30%; border-radius: 10px; padding: 10px;">
                 
                 <center>
-                    <a href="../index.html"><img src="../style/img/logo.png" width="100px" height="100px"></a>
                     <h2>Modificar Visitante</h2>
                     <small id="info">Estás modificando los datos de ${data.info} </small>
                     <p>&nbsp</p>
@@ -207,12 +206,12 @@ export async function PContent_admin_visitante_load_send(){
             const userData = {
                 nombre: document.getElementById('nombre').value,
                 apellido: document.getElementById('apellido').value,
-                correo: document.getElementById('correo').value
+                correo: document.getElementById('Correo').value
             }
     
-            postApiInfo('/api/visitante/', userData).then(result => {
+            postApiInfo('/api/visitante', userData).then(result => {
                 if(result){alert('Datos Enviados')}
-            })
+            }).catch(err => alert('Ha ocurrido un error ' + err))
         }
     } catch (error) {
         
@@ -224,7 +223,7 @@ export async function visitante_deleteEvent(event){
     
     let choice =  confirm('¿Estás seguro que quieres eliminar a ' + document.getElementById(`nombreT${event.id}`).innerText + ' ' + document.getElementById(`apellidoT${event.id}`).innerText + '?') 
      if(choice == true){
-         deleteApiInfo('/api/visitante/' + event.id); window.location.reload();
+         deleteApiInfo('/api/visitante/' + event.id); 
      }
      
     

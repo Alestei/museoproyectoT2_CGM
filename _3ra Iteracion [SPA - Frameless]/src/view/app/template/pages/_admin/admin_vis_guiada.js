@@ -188,7 +188,7 @@ class admin_vis_guiada_l {
                         //console.log(response[0] + " - " + x)
                     newContent +=  `
                     <tr>
-                        <td id="vg${x}">${vg[x].nombreVisita}</td>
+                        <td id="vg${vg[x].ID_VG}">${vg[x].nombreVisita}</td>
                         <td>${vg[x].FHora}</td>
                         <td>${response[0]}</td>
                         <td id="idioma${x}">
@@ -327,20 +327,20 @@ export async function PContent_admin_vg_load_send(){
         let vis_guiada_data = {
             nombreVisita: '',
             FHora : '',
-            ID_guia : []
+            ID_guia : ''
         }    
 
 
         let vis_guiada_sala_data = {
-            sala: []
+            sala: ''
         }
 
 
          document.getElementById('sala_b').onclick = function(){
                 if(document.getElementById('sala').value != "-"){
                     document.getElementById('sala_s').style = "";
-                    document.getElementById('sala_s_t').innerHTML += '<br>' + document.getElementById('sala').selectedOptions[0].text;
-                    vis_guiada_sala_data.sala.push(parseInt(document.getElementById('sala').value));
+                    document.getElementById('sala_s_t').innerHTML = '<br>' + document.getElementById('sala').selectedOptions[0].text;
+                    vis_guiada_sala_data.sala = parseInt(document.getElementById('sala').value);
                 } 
             }
 
@@ -348,12 +348,14 @@ export async function PContent_admin_vg_load_send(){
 
             document.getElementById('guia_b').onclick = function(){
                 if(document.getElementById('guia').value != "-"){
+                    let IdiVec = []; 
                     document.getElementById('guia_s').style = "";
-                    document.getElementById('guia_s_t').innerHTML += '<br>'+ document.getElementById('guia').selectedOptions[0].text;
-                    vis_guiada_data.ID_guia.push(parseInt(document.getElementById('guia').value));
+                    document.getElementById('guia_s_t').innerHTML = '<br>'+ document.getElementById('guia').selectedOptions[0].text;
+                    vis_guiada_data.ID_guia = parseInt(document.getElementById('guia').value);
 
                     getApiInfo('/api/guia_idioma/lang/' + document.getElementById('guia').value).then(response =>{
-                        let IdiVec = []; console.log(response)
+                      console.log(response)
+                      
                         for(let x in response){IdiVec.push(response[x].ID_idioma)}
 
                         for(let x in IdiVec){
@@ -363,7 +365,7 @@ export async function PContent_admin_vg_load_send(){
                          }
 
                         for(let x in response){
-                            document.getElementById('guia_s_t_i').innerHTML += `<option id=${response[x].ID_idioma} value=${response[x].ID_idioma}>${IdiVec[x]}</option>`
+                            document.getElementById('guia_s_t_i').innerHTML = `<option id=${response[x].ID_idioma} value=${response[x].ID_idioma}>${IdiVec[x]}</option>`
                         }
                     })
                 }
@@ -374,7 +376,7 @@ export async function PContent_admin_vg_load_send(){
           
 
          document.getElementById('send_VG').onclick = function(){
-            console.log(vis_guiada_data, vis_guiada_sala_data);
+            //console.log(vis_guiada_data, vis_guiada_sala_data);
             vis_guiada_data.nombreVisita = document.getElementById('nombre').value;
             vis_guiada_data.FHora = document.getElementById('fecha').value;
             
@@ -393,9 +395,10 @@ export async function PContent_admin_vg_load_send(){
 
 
                         postApiInfo('/api/visita_guiada_idioma',vis_guiada_idioma).then(
-                            postApiInfo('/api/visita_guiada_salas',vis_guiada_sala).then(
-                
-                            )
+                            postApiInfo('/api/visita_guiada_salas',vis_guiada_sala).then( result => {
+                                if(result) alert('Datos Cargados')
+                           
+                             }).catch(alert('Ha ocurrido un error'))
                         )
                     
                 })
@@ -411,7 +414,7 @@ export async function vg_deleteEvent(event){
     //console.log(event.id)
     let choice = confirm('¿Estás seguro que quieres eliminar "' + document.getElementById(`vg${event.id}`).innerText + '" ?') 
     if(choice == true){
-        deleteApiInfo('/api/visita_guiada/' + event.id);  window.location.reload();
+        deleteApiInfo('/api/visita_guiada/' + event.id);  
     }
    
  }

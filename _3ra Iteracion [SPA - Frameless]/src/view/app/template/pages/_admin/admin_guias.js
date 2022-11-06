@@ -46,7 +46,6 @@ class admin_guias_L {
       <div id="squareform" style="color: rgb(0, 0, 0); background-color:rgba(255, 255, 255, 0.603) ;margin: auto; width: 30%; border-radius: 10px; padding: 10px;">
         
           <center>
-              <a href="../index.html"><img src="../style/img/logo.png" width="100px" height="100px"></a>
                   <h2>Modificar Guia</h2>
                   <small id="info">Estás modificando a ${dataM.info} </small>
                   <p>&nbsp</p>
@@ -252,7 +251,7 @@ export async function PContent_admin_guias_func_load_send(){
                             ultima_vez : ''
                         }
 
-                        postApiInfo('/api/guia_idioma', data);
+                        postApiInfo('/api/guia_idioma', data)
                     }
 
             })
@@ -381,7 +380,7 @@ export async function guia_deleteEvent(event){
      //console.log(event.id)
      let choice =  confirm('¿Estás seguro que quieres eliminar a "' + document.getElementById(`nombreT${event.id}`).innerText + ' ' + document.getElementById(`apellidoT${event.id}`).innerText + '" ?') 
       if(choice == true){
-          deleteApiInfo('/api/guia/' + event.id); window.location.reload();
+          deleteApiInfo('/api/guia/' + event.id); 
       }
     
   }

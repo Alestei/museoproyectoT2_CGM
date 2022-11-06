@@ -93,8 +93,6 @@ class servi_guias{
                   </table>
              
           
-           <p>&nbsp</p>
-           <a l-id="button1" id="1" class="MButton" >Volver</a>
           <p>&nbsp</p>
          
            
@@ -257,6 +255,7 @@ export async function PContent_servi_guias_add_send(QueryID){
 
 export async function PContent_servi_guias_load(queryID){
     try {
+
             let newContent = {
                 sala: '',
                 tabla: ''

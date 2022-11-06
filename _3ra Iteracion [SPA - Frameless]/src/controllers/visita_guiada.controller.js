@@ -87,9 +87,9 @@ exports.actualizarPID = async (req, res, id) => {
 
 };
 
-exports.borrarPID = (req, res) => {
+exports.borrarPID = (req, res, id) => {
 
-  Visita_Guiada.borrarPID(req.params.id, (err, data) => {
+  Visita_Guiada.borrarPID(id, (err, data) => {
     if (err){
       res.writeHead(400, {'Content-Type': 'application/json'})
       res.end(JSON.stringify(err))

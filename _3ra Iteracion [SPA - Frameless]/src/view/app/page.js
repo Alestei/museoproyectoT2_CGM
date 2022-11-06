@@ -139,10 +139,10 @@ async function formWindowOperation(domID){
     delButtons.forEach( async function(elem) {
         elem.addEventListener("click", async function() { 
             switch(domID){
-                case 'admin_visitante' : await visitante_deleteEvent(elem); break;                     
-                case 'admin_guias' :     await guia_deleteEvent(elem);      break;
-                case 'admin_vg' :        await vg_deleteEvent(elem);        break;         
-                case 'admin_salas' :     await salas_deleteEvent(elem);     break;      
+                case 'admin_visitante' : await visitante_deleteEvent(elem);  await App(await PContent_admin_visitante_func(), domID, 'A_Visitante'); break;                     
+                case 'admin_guias' :     await guia_deleteEvent(elem);       await App(await PContent_admin_guias_func(), domID, 'A_Guias'); break;
+                case 'admin_vg' :        await vg_deleteEvent(elem);         await App(await PContent_admin_vg_func(), domID, 'A_VG'); break;         
+                case 'admin_salas' :     await salas_deleteEvent(elem);      await App(await PContent_admin_salas_func(), domID, 'A_Salas'); break;      
             
             }
         });

@@ -53,7 +53,7 @@ const server = http.createServer(async (req, res) => {
         res.writeHead(statusCode, { 'Content-Type': mimeType });
         file.stream.pipe(res); 
     }
-    
+
     console.log(`${req.method} ${req.url} `);
   
 })
