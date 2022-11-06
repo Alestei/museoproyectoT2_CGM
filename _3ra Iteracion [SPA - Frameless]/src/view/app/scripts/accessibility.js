@@ -26,7 +26,7 @@ MAccess.forEach( function(elem,i) {
              ARO = 1;
              internButtons()
             }else{
-
+                document.getElementById('accTo').remove()
                 ARO = 0;
         }
     });
