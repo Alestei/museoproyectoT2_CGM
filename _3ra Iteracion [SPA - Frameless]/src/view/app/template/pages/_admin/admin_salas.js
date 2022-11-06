@@ -1,3 +1,6 @@
+import { App } from "../../../DOM_Manager.js";
+
+
 class admin_salas_L { 
     list(data) {
       return `
@@ -27,8 +30,7 @@ class admin_salas_L {
              
           
            <p>&nbsp</p><hr><br>
-           <a l-id="button0" id="0" class="MButton" >Cargar Sala</a>
-           <a l-id="button1" id="1" class="MButton" href="./">Volver</a>
+           <a l-id="button0" id="button0" class="MButton" >Cargar Sala</a>
           <p>&nbsp</p>
          
            
@@ -64,7 +66,7 @@ class admin_salas_L {
                     
                  <p>&nbsp</p><hr><br>
                  <input id="sendinfo" type="submit" class="MButton" >
-                 <a class="MButton" href="./">Volver</a>
+                 <input id="goBack" type="submit" value="Salir" class="MButton" >
                 <p>&nbsp</p>
                
                  
@@ -76,8 +78,7 @@ class admin_salas_L {
     </div> 
         `
     }
-    load(data, type){
-        if(type == 'sala'){
+    loadSala(){
         return `
         <div class="flex-wrapper">
       
@@ -100,7 +101,7 @@ class admin_salas_L {
                     
                  <p>&nbsp</p><hr><br>
                  <input id="sendinfo" type="submit" class="MButton">
-                 <a class="MButton" href="./">Volver</a>
+                 <input id="goBack" type="submit" value="Salir" class="MButton" >
                 <p>&nbsp</p>
                
                  
@@ -112,8 +113,8 @@ class admin_salas_L {
     </div> 
     
         `
-        }
-        if(type == 'obra'){
+    }
+    loadObra(data){
             return `
             <div class="flex-wrapper">
           
@@ -137,7 +138,7 @@ class admin_salas_L {
                         
                      <p>&nbsp</p><hr><br>
                      <input id="sendinfo" type="submit" class="MButton">
-                     <a class="MButton" href="./">Volver</a>
+                     <input id="goBack" type="submit" value="Salir" class="MButton" >
                     <p>&nbsp</p>
                    
                      
@@ -149,10 +150,10 @@ class admin_salas_L {
         </div> 
         
             `
-        }
 
     }
-  }
+}
+
   
   export async function PContent_admin_salas_func() {
       try {
@@ -211,6 +212,11 @@ export async function PContent_admin_salas_modify(queryID){
 
 export async function PContent_admin_salas_modify_send(queryID){
     try {
+        const goBack = document.getElementById('goBack')
+        goBack.addEventListener("click", async function(){
+            return await App(await PContent_admin_salas_func(), 'admin_salas', 'Salas')
+        })
+
         document.getElementById('sendinfo').onclick = function(){
             const data = {
                 nombre_sala : document.getElementById('nombre').value
@@ -218,8 +224,8 @@ export async function PContent_admin_salas_modify_send(queryID){
 
             putApiInfo('/api/sala/' + queryID, data).then(result => {
                 if(result) alert('Datos Cargados')
-            
-            }).catch(alert('Ha ocurrido un error'));
+                return result
+            }).catch(result => {if(result.length = 0){alert('Ha ocurrido un error')}});
       }
     } catch (error) {
         
@@ -229,14 +235,16 @@ export async function PContent_admin_salas_modify_send(queryID){
 export async function PContent_admin_salas_load(queryID){
     try {
         const content = new admin_salas_L();
-        let newData = {
-            info: document.getElementById(`sala_${queryID.split('_')[1]}`).innerText,
-            dataid: queryID.split('_')[1],
-        }
         if(queryID.split('_')[0] == 'ob'){
-            return `${content.load(newData, 'obra')}`
-        }else{
-            return `${content.load(null, 'sala')}`
+            let newData = {
+                info: document.getElementById(`sala_${queryID.split('_')[1]}`).innerText,
+                dataid: queryID.split('_')[1],
+            }
+            return `${content.loadObra(newData)}`
+        }
+        
+        if(queryID == 'button0'){
+            return `${content.loadSala('sala')}`
         }
         
     } catch (error) {
@@ -246,6 +254,10 @@ export async function PContent_admin_salas_load(queryID){
   
 export async function PContent_admin_salas_load_send(queryID){
     try {
+        const goBack = document.getElementById('goBack')
+        goBack.addEventListener("click", async function(){
+            return await App(await PContent_admin_salas_func(), 'admin_salas', 'Salas')
+        })
 
         document.getElementById('sendinfo').onclick = function(){
             if(queryID.split('_')[0] == 'ob'){
@@ -264,10 +276,10 @@ export async function PContent_admin_salas_load_send(queryID){
                         return data_sala_obra
                     }).then(r3 => {
                        // console.log(data_sala_obra)
-                        postApiInfo('/api/sala_obra', data_sala_obra).then(
-                             alert('Datos Cargados')
-                        
-                        ).catch(alert('Ha ocurrido un error'));
+                        postApiInfo('/api/sala_obra', data_sala_obra).then(result => {
+                             if(result) alert('Datos Cargados')
+                            return result
+                     }).catch(result => {if(result.length = 0){alert('Ha ocurrido un error')}});
                 })
              })
             }
@@ -276,12 +288,12 @@ export async function PContent_admin_salas_load_send(queryID){
                 const data = {
                     nombre_sala : document.getElementById('nombre').value
                 }
-                postApiInfo('/api/sala', data).then(
-                    alert('Datos Cargados')
-               
-               ).catch(alert('Ha ocurrido un error'));
-            }
-        }
+                postApiInfo('/api/sala', data).then( result => {
+                    if(result) alert('Datos Cargados')
+                    return result
+                }).catch(result => {if(result.length = 0){alert('Ha ocurrido un error')}});
+            }}
+        
     } catch (error) {
         
     }

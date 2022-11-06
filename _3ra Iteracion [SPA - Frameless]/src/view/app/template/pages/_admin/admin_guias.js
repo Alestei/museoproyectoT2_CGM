@@ -1,3 +1,5 @@
+import { App } from "../../../DOM_Manager.js";
+
 class admin_guias_L { 
     list(data){
         return  `
@@ -24,7 +26,6 @@ class admin_guias_L {
             
              <p>&nbsp</p><hr><br>
              <a l-id="button0" id="0" class="MButton" >Cargar Guia</a>
-             <a l-id="button1" id="1" class="MButton" href="../">Volver</a>
             <p>&nbsp</p>
            
              
@@ -69,7 +70,7 @@ class admin_guias_L {
                           
                <p>&nbsp</p><hr><br>
                <input id="sendGuia" type="submit" class="MButton" >
-               <a class="MButton" href="./">Volver</a>
+               <input id="goBack" type="submit" value="Salir" class="MButton" >
                
               <p>&nbsp</p>
               
@@ -118,7 +119,7 @@ class admin_guias_L {
                 
              <p>&nbsp</p><hr><br>
              <input id="sendGuia" type="submit" class="MButton" >
-             <a class="MButton" href="./" >Volver</a>
+             <input id="goBack" type="submit" value="Salir" class="MButton" >
             <p>&nbsp</p>
            
              
@@ -212,7 +213,11 @@ export async function PContent_admin_guias_func_load(){
 
 export async function PContent_admin_guias_func_load_send(){
     try {
-        
+        const goBack = document.getElementById('goBack')
+        goBack.addEventListener("click", async function(){
+            return await App(await PContent_admin_guias_func(), 'admin_guias', 'Guias')
+        })
+
         let userData_guia_idioma = {
             idiomas : []
          }
@@ -306,6 +311,11 @@ export async function PContent_admin_guias_func_modify(id){
   
 export async function PContent_admin_guias_func_modify_send(QueryID){
     try {
+        const goBack = document.getElementById('goBack')
+        goBack.addEventListener("click", async function(){
+            return await App(await PContent_admin_guias_func(), 'admin_guias', 'Guias')
+        })
+        
         const formButtons = document.querySelectorAll('.MButton');
         formButtons.forEach( async function(elem) {
             elem.addEventListener("click", async function() {

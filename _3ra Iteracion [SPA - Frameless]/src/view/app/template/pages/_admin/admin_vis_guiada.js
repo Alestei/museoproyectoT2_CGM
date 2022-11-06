@@ -1,3 +1,5 @@
+import { App } from "../../../DOM_Manager.js";
+
 class admin_vis_guiada_l { 
     list(data) {
       return `
@@ -67,7 +69,7 @@ class admin_vis_guiada_l {
 
                     <p>&nbsp</p><hr><br>
                         <input type="submit" class="MButton">
-                        <a class="MButton"  href="./">Volver</a>
+                        <input id="goBack" type="submit" value="Salir" class="MButton" >
                     <p>&nbsp</p>
             
                 
@@ -130,7 +132,7 @@ class admin_vis_guiada_l {
 
              <p>&nbsp</p><hr><br>
              <input id="send_VG" type="submit" class="MButton">
-             <a class="MButton" href="./">Volver</a>
+             <input id="goBack" type="submit" value="Salir" class="MButton" >
             <p>&nbsp</p>
            
              
@@ -277,6 +279,7 @@ export async function PContent_admin_vg_modify(QueryID){
         
                             return getApiInfo('/api/sala/' + responseVG[0].ID_sala).then(response => {              
                                     newContent.salaselecta = ` <b> ${response[0].nombre_sala} </b> `   
+                                    newContent = newContent.replace(`undefined`, ``)
                                     return newContent
                         }).then(newContent => { const content = new admin_vis_guiada_l();  return `${content.modify(newContent)}`});
                     })
@@ -315,6 +318,7 @@ export async function PContent_admin_vg_load(){
                     `
                     
                 }
+
                 return newContent
             }).then(newContent => {const content = new admin_vis_guiada_l(); return `${content.load(newContent)}`} )
     })
@@ -324,6 +328,11 @@ export async function PContent_admin_vg_load(){
 
 export async function PContent_admin_vg_load_send(){
     try {
+        const goBack = document.getElementById('goBack')
+        goBack.addEventListener("click", async function(){
+            return await App(await PContent_admin_vg_load(), 'admin_VG', 'Visita Guiada')
+        })
+
         let vis_guiada_data = {
             nombreVisita: '',
             FHora : '',
@@ -398,7 +407,7 @@ export async function PContent_admin_vg_load_send(){
                             postApiInfo('/api/visita_guiada_salas',vis_guiada_sala).then( result => {
                                 if(result) alert('Datos Cargados')
                            
-                             }).catch(alert('Ha ocurrido un error'))
+                            }).catch(result => {if(result.length = 0){alert('Ha ocurrido un error')}})
                         )
                     
                 })

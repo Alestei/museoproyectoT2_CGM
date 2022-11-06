@@ -1,3 +1,4 @@
+import { App } from "../../../DOM_Manager.js";
 
  class admin_visitante_L { 
   list(data) {
@@ -29,7 +30,7 @@
         
          <p>&nbsp</p><hr><br>
          <a l-id="button0" id="0"  class="MButton" >Cargar Visitante</a>
-         <a l-id="button1" id="1"  class="MButton" href="./">Volver</a>
+         
         <p>&nbsp</p>
        
          
@@ -64,7 +65,7 @@
                     
                  <p>&nbsp</p><hr><br>
                  <input id="sendVisitante" type="submit" class="MButton" >
-                 <a class="MButton" href="./">Volver</a>
+                 <input id="goBack" type="submit" value="Salir" class="MButton" >
                 <p>&nbsp</p>
                
                  
@@ -104,7 +105,7 @@
                     
                  <p>&nbsp</p><hr><br>
                  <input id="sendVisitante" type="submit" class="MButton" >
-                 <a class="MButton" href="./">Volver</a>
+                 <input id="goBack" type="submit" value="Salir" class="MButton" >
                 <p>&nbsp</p>
                
                  
@@ -175,6 +176,11 @@ export async function PContent_admin_visitante_modify(QueryID){
 
 export async function PContent_admin_visitante_modify_send(QueryID){
     try {
+        const goBack = document.getElementById('goBack')
+        goBack.addEventListener("click", async function(){
+            return await App(await PContent_admin_visitante_func(), 'admin_visitante', 'Visitante')
+        })
+
         document.getElementById('sendVisitante').onclick = function(){
         const userData = {
             nombre: document.getElementById('nombre').value,
@@ -184,7 +190,7 @@ export async function PContent_admin_visitante_modify_send(QueryID){
 
         putApiInfo('/api/visitante/' + QueryID, userData).then(result => {
             if(result){alert('Datos Enviados')}
-        })
+        }).catch(result => {if(result.length = 0){alert('Ha ocurrido un error')}})
     }
     } catch (error) {
         
@@ -202,6 +208,11 @@ export async function PContent_admin_visitante_load(){
 
 export async function PContent_admin_visitante_load_send(){
     try {
+        const goBack = document.getElementById('goBack')
+        goBack.addEventListener("click", async function(){
+            return await App(await PContent_admin_visitante_func(), 'admin_visitante', 'Visitante')
+        })
+
         document.getElementById('sendVisitante').onclick = function(){
             const userData = {
                 nombre: document.getElementById('nombre').value,
