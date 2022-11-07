@@ -41,10 +41,6 @@ D.addEventListener('DOMContentLoaded', (event) => {
             sessionStorage.setItem('SESSION', 'false')
         }
 
-        let navInfo = document.querySelectorAll('.Info');
-        let navService = document.querySelectorAll('.Service');
-        let navAdmin = document.querySelectorAll('.Admin');
-        let navHeader = document.querySelectorAll('.index');
 
         adminHeader.addEventListener("click", async function(){
             if(sessionStorage.getItem('SESSION') == 'false'){
@@ -58,6 +54,11 @@ D.addEventListener('DOMContentLoaded', (event) => {
                 document.getElementById('admindrop').style = '';
             }
         })
+        // --------------
+        let navInfo = document.querySelectorAll('.Info');
+        let navService = document.querySelectorAll('.Service');
+        let navAdmin = document.querySelectorAll('.Admin');
+        let navHeader = document.querySelectorAll('.index');
 
         navHeader.forEach( async function (elem) {
             elem.addEventListener("click", async function (){

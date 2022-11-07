@@ -12,10 +12,10 @@ export const PContent_info_guias =  `
           <div id="pushbar" style="padding-left: 15px; padding-bottom: 30px; padding-right: 15px; font-size:15px; font-style: italic;" >
             <div id="picFrame" class="" style="padding-top: 50px;">
               <center>
-              <img src="../style/img/art/plano.jpg" class="Mimg" style="width:1000px; height:550px">
+              <img src="../style/img/art/plano.png" class="Mimg" style="width:1000px;">
               <br>
               <span style="padding-left: 15px;">
-           
+                  ¡Te invitamos a conocer a y disfrutar de nuestras instalaciones!
 
               </span>
              </center>
